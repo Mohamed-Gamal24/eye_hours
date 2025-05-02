@@ -236,4 +236,3 @@ class StatueCard extends StatelessWidget {
       ),
     );
   }
-}
