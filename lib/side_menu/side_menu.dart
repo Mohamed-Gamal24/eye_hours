@@ -104,7 +104,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           Divider(color: Colors.grey[300]),
           CustomDropDownMenu(
-            title: AppLocalizations.of(context)!.language,
+            title: AppLocalizations.of(context)!.languagee,
             textView: configProvider.isEnglish ? "English" : "عربي",
             menuItems: ["English", "عربي"],
             onChange: _onLanguageChange,
