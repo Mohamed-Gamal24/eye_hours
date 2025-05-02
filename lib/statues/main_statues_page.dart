@@ -30,7 +30,7 @@ class MainPageStatues extends StatelessWidget {
     ),
     Statue(
       id: '2',
-      name: 'Statue of Liberty',
+      name: 'Statue of Libertyyy',
       imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
       shortDescription: 'Iconic copper statue in Ne',
       fullDescription:
