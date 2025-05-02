@@ -9,6 +9,7 @@ import 'package:eye_hours/side_menu/terms_and_condition.dart';
 import 'package:eye_hours/widget/custom_drop_down_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -24,6 +25,7 @@ class _SideMenuState extends State<SideMenu> {
 
   @override
   Widget build(BuildContext context) {
+    configProvider = Provider.of<ConfigProvider>(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -104,7 +106,7 @@ class _SideMenuState extends State<SideMenu> {
           ),
           Divider(color: Colors.grey[300]),
           CustomDropDownMenu(
-            title: AppLocalizations.of(context)!.languagee,
+            title: AppLocalizations.of(context)!.language,
             textView: configProvider.isEnglish ? "English" : "عربي",
             menuItems: ["English", "عربي"],
             onChange: _onLanguageChange,
