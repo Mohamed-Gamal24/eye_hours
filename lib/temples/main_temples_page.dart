@@ -100,22 +100,6 @@ class MainPageTemples extends StatelessWidget {
       fullDescription:
           'The Temple of Kukulcan at Chichen Itza, Mexico is a Mesoamerican step-pyramid that dominates the archaeological site. The temple exhibits precise astronomical alignment where the setting sun during equinoxes creates shadows that resemble a serpent descending the pyramid.',
     ),
-    Temple(
-      id: '11',
-      name: 'Shwedagon Pagoda',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Golden Buddhist stupa',
-      fullDescription:
-          'The Shwedagon Pagoda in Yangon, Myanmar is a 99-meter gilded stupa plated with gold and encrusted with thousands of diamonds. According to legend, it contains relics of four Buddhas. The pagoda is the most sacred Buddhist site in Myanmar and a major pilgrimage destination.',
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Temples Gallery',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
