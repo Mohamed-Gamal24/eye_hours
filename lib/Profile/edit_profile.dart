@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfilePage extends StatefulWidget {
   final String currentFirstName;
@@ -84,8 +85,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Edit Profile',
+        title: Text(
+          AppLocalizations.of(context)!.edit,
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -119,7 +120,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return TextFormField(
       controller: _firstNameController,
       decoration: InputDecoration(
-        labelText: 'First Name',
+        labelText: AppLocalizations.of(context)!.first,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -137,7 +138,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return TextFormField(
       controller: _lastNameController,
       decoration: InputDecoration(
-        labelText: 'Last Name',
+        labelText: AppLocalizations.of(context)!.last,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -156,7 +157,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       controller: _emailController,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        labelText: 'Email',
+        labelText: AppLocalizations.of(context)!.email,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -177,7 +178,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return DropdownButtonFormField<String>(
       value: _selectedGender,
       decoration: InputDecoration(
-        labelText: 'Gender',
+        labelText: AppLocalizations.of(context)!.gender,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),

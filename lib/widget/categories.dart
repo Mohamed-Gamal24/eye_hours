@@ -1,6 +1,5 @@
-import 'package:eye_hours/statues/main_statues_page.dart';
-import 'package:eye_hours/temples/main_temples_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoriesList extends StatelessWidget {
   const CategoriesList({super.key});
@@ -9,12 +8,12 @@ class CategoriesList extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
       {
-        'title': 'Temples',
+        'title': AppLocalizations.of(context)!.temples,
         'image': 'assets/image/f71e8b4c5242809881a42c54cb9c00de.jpg',
         'route': '/MainPageTemples',
       },
       {
-        'title': 'Statues',
+        'title': AppLocalizations.of(context)!.statues,
         'image': 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
         'route': '/MainPageStatues',
       },
@@ -23,10 +22,10 @@ class CategoriesList extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 6.0),
           child: Text(
-            'Categories',
+            AppLocalizations.of(context)!.categories,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

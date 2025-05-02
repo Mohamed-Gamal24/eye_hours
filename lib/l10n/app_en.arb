@@ -1,6 +1,33 @@
 {
-     "ask": "Ask Our Chatbot"
-    
-    
-    
+     "ask": "Ask Our Chatbot",
+     "categories": "Categories",
+     "temples": "Temples",
+     "statues": "Statues",
+     "top": "Top Museums At The Moment",
+     "profile": "Profile",
+     "subscription": "Subscription",
+     "subscriptionplan": "Subscription Plan",
+     "customer": "Customer",
+     "chatbot": "Chatbot",
+     "terms": "Terms and Conditions",
+     "help": "Help Center",
+     "logout": "Logout",
+     "edit": "Edit Profile",
+     "settings": "Settings",
+     "first": "First Name",
+     "last": "Last Name",
+     "email": "Email",
+     "gender": "Gender",
+     "update": "Update Profile",
+     "choose": "Choose Your Plan",
+     "daily": "Daily",
+     "weekly": "Weekly",
+     "monthly": "Monthly",
+     "yearly": "Yearly",
+     "vip": "Vip-specific features",
+     "no": "No ads",
+     "early": "Early access to new tours",
+     "customer4": "24/7 customer support",
+     "search": "Search"
+
 }

@@ -114,7 +114,7 @@ class HomeContent extends StatelessWidget {
           const SizedBox(height: 6),
           TextField(
             decoration: InputDecoration(
-              hintText: 'Search...',
+              hintText: AppLocalizations.of(context)!.search,
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(32),
@@ -213,7 +213,6 @@ class HomeContent extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.ask,
-                    //  'Ask Our Chatbot →',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
