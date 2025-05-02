@@ -61,7 +61,7 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
             child: Hero(
               tag: 'statue-${widget.statue.id}',
@@ -69,7 +69,7 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
                   widget.statue.imagePath,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
