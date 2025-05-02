@@ -2,13 +2,25 @@
 import 'package:eye_hours/Basics/profile.dart';
 import 'package:eye_hours/chat_bot.dart';
 import 'package:eye_hours/pages/login_page.dart';
+import 'package:eye_hours/provider/config_provider.dart';
 import 'package:eye_hours/side_menu/Subscription.dart';
 import 'package:eye_hours/side_menu/help_center.dart';
 import 'package:eye_hours/side_menu/terms_and_condition.dart';
+import 'package:eye_hours/widget/custom_drop_down_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SideMenu extends StatelessWidget {
+class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
+  String selectedLang = "English";
+  String selectedTheme = "Light";
+  late ConfigProvider configProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -56,45 +68,51 @@ class SideMenu extends StatelessWidget {
           _buildListTile(
             context,
             icon: Icons.person,
-            title: 'Profile',
+            title: AppLocalizations.of(context)!.profile,
             onTap: () => _handleprofile(context),
           ),
           _buildListTile(
             context,
             icon: Icons.subscriptions,
-            title: 'Subscription',
+            title: AppLocalizations.of(context)!.subscription,
             onTap: () => _handleSubscription(context),
           ),
           _buildListTile(
             context,
             icon: Icons.support_agent,
-            title: 'Customer Service',
+            title: AppLocalizations.of(context)!.customer,
             onTap: () => _handleCustomerService(context),
           ),
           _buildListTile(
             context,
             icon: Icons.chat,
-            title: 'Chatbot',
+            title: AppLocalizations.of(context)!.chatbot,
             onTap: () => _handlechatbot(context),
           ),
           Divider(color: Colors.grey[300]),
           _buildListTile(
             context,
             icon: Icons.description,
-            title: 'Terms and Conditions',
+            title: AppLocalizations.of(context)!.terms,
             onTap: () => _handleTermsAndConditions(context),
           ),
           _buildListTile(
             context,
             icon: Icons.help,
-            title: 'Help Center',
+            title: AppLocalizations.of(context)!.help,
             onTap: () => _handleHelpCenter(context),
           ),
           Divider(color: Colors.grey[300]),
+          CustomDropDownMenu(
+            title: AppLocalizations.of(context)!.language,
+            textView: configProvider.isEnglish ? "English" : "عربي",
+            menuItems: ["English", "عربي"],
+            onChange: _onLanguageChange,
+          ),
           _buildListTile(
             context,
             icon: Icons.exit_to_app,
-            title: 'Log Out',
+            title: AppLocalizations.of(context)!.logout,
             onTap: () => _handleLogOut(context),
           ),
         ],
@@ -165,5 +183,9 @@ class SideMenu extends StatelessWidget {
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
     // تنفيذ تسجيل الخروج
+  }
+
+  void _onLanguageChange(String? newLang) {
+    configProvider.ChangeAppLanguage(newLang == "English" ? "en" : "ar");
   }
 }

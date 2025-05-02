@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key});
@@ -14,7 +15,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Subscription Plans'),
+        title: Text(AppLocalizations.of(context)!.subscriptionplan),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -31,8 +32,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Choose your plan:',
+            Text(
+              AppLocalizations.of(context)!.choose,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -43,28 +44,28 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             // Subscription Plans
             _buildPlanCard(
               price: '\$0.99',
-              duration: 'Daily',
+              duration: AppLocalizations.of(context)!.daily,
               isSelected: _selectedPlan == 'daily',
               onTap: () => setState(() => _selectedPlan = 'daily'),
             ),
             const SizedBox(height: 15),
             _buildPlanCard(
               price: '\$5.99',
-              duration: 'Weekly',
+              duration: AppLocalizations.of(context)!.weekly,
               isSelected: _selectedPlan == 'weekly',
               onTap: () => setState(() => _selectedPlan = 'weekly'),
             ),
             const SizedBox(height: 15),
             _buildPlanCard(
               price: '\$20.99',
-              duration: 'Monthly',
+              duration: AppLocalizations.of(context)!.monthly,
               isSelected: _selectedPlan == 'monthly',
               onTap: () => setState(() => _selectedPlan = 'monthly'),
             ),
             const SizedBox(height: 15),
             _buildPlanCard(
               price: '\$99.99',
-              duration: 'Yearly',
+              duration: AppLocalizations.of(context)!.yearly,
               isSelected: _selectedPlan == 'yearly',
               onTap: () => setState(() => _selectedPlan = 'yearly'),
             ),
@@ -72,17 +73,17 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             const Divider(height: 40, thickness: 1),
 
             // VIP Features Section
-            const Text(
-              'VIP-specific features:',
+            Text(
+              AppLocalizations.of(context)!.vip,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 15),
-            _buildFeatureItem('No ads'),
-            _buildFeatureItem('Early access to new tours'),
-            _buildFeatureItem('24/7 customer support'),
+            _buildFeatureItem(AppLocalizations.of(context)!.no),
+            _buildFeatureItem(AppLocalizations.of(context)!.early),
+            _buildFeatureItem(AppLocalizations.of(context)!.customer4),
             const SizedBox(height: 30),
 
             // Upgrade Button

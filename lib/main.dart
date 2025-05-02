@@ -1,13 +1,14 @@
 import 'package:eye_hours/OnboardingScreen.dart';
+import 'package:eye_hours/provider/config_provider.dart';
 import 'package:eye_hours/statues/main_statues_page.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:eye_hours/temples/main_temples_page.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(Eye_of_Hours());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ConfigProvider(), child: Eye_of_Hours()));
 }
 
 class Eye_of_Hours extends StatelessWidget {
@@ -15,13 +16,15 @@ class Eye_of_Hours extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var configProvider = Provider.of<ConfigProvider>(context);
+
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: [
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      locale: Locale('en'),
+      locale: Locale(configProvider.currentLanguage),
       routes: {
         '/MainPageTemples': (context) => MainPageTemples(),
         '/MainPageStatues': (context) => MainPageStatues(),

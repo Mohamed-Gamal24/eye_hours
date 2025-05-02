@@ -1,5 +1,6 @@
 import 'package:eye_hours/widget/museum_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MuseumTour extends StatelessWidget {
   const MuseumTour({super.key});
@@ -82,10 +83,10 @@ class MuseumTour extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(vertical: 6.0),
           child: Text(
-            'Top Museums at the Moment',
+            AppLocalizations.of(context)!.top,
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -162,7 +163,7 @@ class MuseumTour extends StatelessWidget {
           // معلومات المتحف
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(12),
+              padding: EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

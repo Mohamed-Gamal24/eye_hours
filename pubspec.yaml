@@ -43,6 +43,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  provider: ^6.1.5
 
 
 
