@@ -5,9 +5,9 @@ class ConfigProvider extends ChangeNotifier {
 
   bool get isEnglish => currentLanguage == "en";
 
-  void ChangeAppLanguage(String newlang) {
-    if (currentLanguage == newlang) return;
-    currentLanguage = newlang;
+  void changeAppLanguage(String newLang) {
+    if (currentLanguage == newLang) return;
+    currentLanguage = newLang;
     notifyListeners();
   }
 }

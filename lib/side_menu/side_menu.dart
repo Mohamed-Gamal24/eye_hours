@@ -2,10 +2,12 @@
 import 'package:eye_hours/Basics/profile.dart';
 import 'package:eye_hours/chat_bot.dart';
 import 'package:eye_hours/pages/login_page.dart';
+import 'package:eye_hours/provider/config_provider.dart';
 import 'package:eye_hours/side_menu/Subscription.dart';
 import 'package:eye_hours/side_menu/help_center.dart';
 import 'package:eye_hours/side_menu/terms_and_condition.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -17,9 +19,11 @@ class SideMenu extends StatefulWidget {
 class _SideMenuState extends State<SideMenu> {
   String selectedLanguage = 'English';
   final List<String> languages = ['English', 'Arabic'];
+  late ConfigProvider configProvider;
 
   @override
   Widget build(BuildContext context) {
+    configProvider = Provider.of<ConfigProvider>(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -148,10 +152,9 @@ class _SideMenuState extends State<SideMenu> {
                 return ListTile(
                   title: Text(languages[index]),
                   onTap: () {
-                    setState(() {
-                      selectedLanguage = languages[index];
-                    });
-                    Navigator.pop(context);
+                    configProvider.changeAppLanguage(
+                        selectedLanguage == "English" ? "en" : "ar");
+
                     // Here you can add logic to change the app's language
                     // For example, using a language provider or locale change
                   },
