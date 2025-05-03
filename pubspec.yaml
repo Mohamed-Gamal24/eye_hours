@@ -71,32 +71,33 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/image/c398210f53e7f530bf3466b4efeb09e7.png
-    - assets/image/hours.icon.jpg
-    - assets/image/a297cfea26a95d5f4b019681e81e5608.jpg
-    - assets/image/2f127195133c9166df40d1ba744cbb8f.jpg
-    - assets/image/6212889649898e9c743f69e6a52c7364.jpg
-    - assets/image/153a902ca11f5103e3a78b3521ae27b6.jpg
-    - assets/image/13c6e78b3aaa64d3f113da8db3d7773b.jpg
-    - assets/image/153a902ca11f5103e3a78b3521ae27b6.jpg
-    - assets/image/63136e3e31da79ed5b8c6dc38dbb409b.jpg
-    - assets/image/559f259ca5df59ecbaeaff840cbd1f1c.jpg
-    - assets/image/f71e8b4c5242809881a42c54cb9c00de.jpg    
-    - assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg 
-    - assets/image/441c14126a15ff18c7d8c7a84663aebe.jpg    
-    - assets/image/5d360bb1e8b064f361f88e3cf121f5a0.jpg  
-    - assets/image/483720d21e5105ecbf32b62355020d39.jpg 
+    - assets/image/  
+    # - assets/image/c398210f53e7f530bf3466b4efeb09e7.png
+    # - assets/image/hours.icon.jpg
+    # - assets/image/a297cfea26a95d5f4b019681e81e5608.jpg
+    # - assets/image/2f127195133c9166df40d1ba744cbb8f.jpg
+    # - assets/image/6212889649898e9c743f69e6a52c7364.jpg
+    # - assets/image/153a902ca11f5103e3a78b3521ae27b6.jpg
+    # - assets/image/13c6e78b3aaa64d3f113da8db3d7773b.jpg
+    # - assets/image/153a902ca11f5103e3a78b3521ae27b6.jpg
+    # - assets/image/63136e3e31da79ed5b8c6dc38dbb409b.jpg
+    # - assets/image/559f259ca5df59ecbaeaff840cbd1f1c.jpg
+    # - assets/image/f71e8b4c5242809881a42c54cb9c00de.jpg    
+    # - assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg 
+    # - assets/image/441c14126a15ff18c7d8c7a84663aebe.jpg    
+    # - assets/image/5d360bb1e8b064f361f88e3cf121f5a0.jpg  
+    # - assets/image/483720d21e5105ecbf32b62355020d39.jpg 
 
-    - assets/image/IMG-20250416-WA0062.jpg    #متاحف
-    - assets/image/images (6).jpeg 
-    - assets/image/images.jpeg
-    - assets/image/Luxor-Museum-3-1.jpg          
-    - assets/image/images (5).jpeg     
-    - assets/image/images (7).jpeg    
-    - assets/image/20789431351669239015.jpg
-    - assets/image/images (3).jpeg    
-    - assets/image/images (1).jpeg
-    - assets/image/images (2).jpeg    
+    # - assets/image/IMG-20250416-WA0062.jpg    #متاحف
+    # - assets/image/images (6).jpeg 
+    # - assets/image/images.jpeg
+    # - assets/image/Luxor-Museum-3-1.jpg          
+    # - assets/image/images (5).jpeg     
+    # - assets/image/images (7).jpeg    
+    # - assets/image/20789431351669239015.jpg
+    # - assets/image/images (3).jpeg    
+    # - assets/image/images (1).jpeg
+    # - assets/image/images (2).jpeg    
     
     # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

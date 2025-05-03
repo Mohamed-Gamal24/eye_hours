@@ -23,90 +23,81 @@ class MainPageTemples extends StatelessWidget {
     Temple(
       id: '1',
       name: 'Karnak Temple',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Massive ancient Egyptian temple complex',
+      imagePath: 'assets/image/karnak.jpeg',
+      shortDescription: 'The Greatest Religious Complex of Ancient Egypt',
       fullDescription:
-          'The Karnak Temple Complex is the largest religious ancient site in the world. Located in Luxor, Egypt, it was built over 2000 years and dedicated to the Theban Triad of Amun, Mut, and Khonsu. The complex features massive pylons, obelisks, and the famous Great Hypostyle Hall with its 134 massive columns.',
+          'Karnak Temple is one of the greatest religious complexes of ancient Egypt, built and expanded over 2,000 years. Construction began in the Middle Kingdom, with major contributions from New Kingdom pharaohs like Thutmose III, Hatshepsut, and Ramses II. The temple includes impressive features such as the First Pylon, Avenue of Sphinxes, the Great Hypostyle Hall with 134 towering columns, and the Sacred Lake. Obelisks, including one by Queen Hatshepsut, still stand today. It was the main center of worship for Amun-Ra and held immense religious and political power.',
     ),
     Temple(
-      id: '2',
-      name: 'Angkor Wat',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'World\'s largest religious monument',
-      fullDescription:
-          'Angkor Wat in Cambodia is the largest religious monument in the world, covering 162.6 hectares. Originally constructed as a Hindu temple dedicated to Vishnu in the 12th century, it gradually transformed into a Buddhist temple. The temple is famous for its lotus bud-shaped towers and exquisite bas-reliefs.',
-    ),
+        id: '2',
+        name: 'Luxor Temple',
+        imagePath: 'assets/image/luxor temple.jpeg',
+        shortDescription: 'Luxor Temple was begun by Amenhotep III',
+        fullDescription:
+            'Luxor Temple was begun by Amenhotep III and completed by Ramses II, dedicated to the Theban Triad: Amun, Mut, and Khonsu. It\'s famous for its grand statues, towering columns, and obelisks—one of which now stands in Paris. The temple uniquely includes the Mosque of Abu Haggag, blending ancient Egyptian and Islamic architecture. It was the central site of the Opet Festival, where gods\' statues were paraded from Karnak Temple. A highlight is its connection to Karnak via the Avenue of Sphinxes.'),
     Temple(
       id: '3',
-      name: 'Parthenon',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Iconic Greek temple',
+      name: 'Hatshepsut Temple',
+      imagePath: 'assets/image/Hatshepsut Temple.jpeg',
+      shortDescription: 'built during Queen Hatshepsut’s reign',
       fullDescription:
-          'The Parthenon is a former temple on the Athenian Acropolis, Greece, dedicated to the goddess Athena. Constructed in the 5th century BCE, it\'s the most important surviving building of Classical Greece and an enduring symbol of Ancient Greek civilization and Western democracy.',
+          'Hatshepsut Temple, built during Queen Hatshepsut’s reign, is a stunning monument at Deir el-Bahari near the Valley of the Kings. Designed by her architect Senenmut, it honors Amun-Ra and celebrates Hatshepsut’s divine birth and achievements. The temple features a unique three-tiered design with terraces and columns that blend into the cliffs. Its walls depict the famous expedition to the Land of Punt, showcasing ships, exotic goods, and incense trees. This mountain-carved masterpiece stands out as one of ancient Egypt’s most remarkable architectural feats.',
     ),
     Temple(
       id: '4',
-      name: 'Borobudur',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Largest Buddhist temple',
+      name: 'Abu Simbel Temple',
+      imagePath: 'assets/image/Abu Simbel Temple.jpeg',
+      shortDescription: 'one of the most famous Pharaonic temples in Egypt',
       fullDescription:
-          'Borobudur is a 9th-century Mahayana Buddhist temple in Magelang, Indonesia. The temple consists of nine stacked platforms, decorated with 2,672 relief panels and 504 Buddha statues. The central dome is surrounded by 72 Buddha statues, each seated inside a perforated stupa.',
+          'Abu Simbel Temple, built by Ramses II around 1264 BC, was intended to celebrate his military victories and divine status. It consists of two temples: the Great Temple with four colossal statues of Ramses, and the Small Temple dedicated to Queen Nefertari. The site honors gods like Amun-Ra, Ra-Horakhty, and Ptah. A remarkable solar alignment lights up Ramses’ statue inside the sanctuary twice a year. In the 1960s, the entire complex was relocated to save it from flooding, a massive UNESCO-led effort that preserved this iconic monument.',
     ),
     Temple(
       id: '5',
-      name: 'Golden Temple',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Sikhism\'s holiest shrine',
+      name: 'Edfu Temple',
+      imagePath: 'assets/image/Edfu Temple.jpeg',
+      shortDescription: 'one of Egypt’s best-preserved temples',
       fullDescription:
-          'The Golden Temple (Harmandir Sahib) is the holiest Gurdwara of Sikhism, located in Amritsar, India. The temple is known for its stunning golden dome and the sacred pool (Amrit Sarovar) that surrounds it. The temple complex feeds over 100,000 people daily through its langar (community kitchen).',
+          'Edfu Temple, built during the Ptolemaic period (237–57 BC), is dedicated to Horus, the sky and protection god. Located on the Nile’s west bank in Edfu, it\'s one of Egypt’s best-preserved temples. Its architecture includes a towering pylon, hypostyle hall, courtyard, and sanctuary. The temple walls depict the mythological battle between Horus and Seth. It reflects traditional Egyptian design blended with Ptolemaic elements, showcasing intricate carvings and exceptional construction.',
     ),
     Temple(
       id: '6',
-      name: 'Lotus Temple',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Baháʼí House of Worship',
+      name: 'Ramesseum Temple',
+      imagePath: 'assets/image/Ramesseum Temple.jpeg',
+      shortDescription: 'built by Ramses II in the 13th century BC',
       fullDescription:
-          'The Lotus Temple in Delhi, India is a Baháʼí House of Worship notable for its flowerlike shape. The temple is composed of 27 free-standing marble-clad "petals" arranged in clusters of three to form nine sides. Since its opening in 1986, it has become one of Delhi\'s most visited buildings.',
+          'The Ramesseum, built by Ramses II in the 13th century BC, served as his mortuary temple to honor him after death and ensure his eternal life. Located on Luxor’s west bank, it featured massive pylons, courtyards, a hypostyle hall, and once held a colossal statue of Ramses over 17 meters tall. The temple’s walls display scenes from the Battle of Kadesh and religious rituals. Though partly ruined, it remains a stunning example of New Kingdom architecture. The name "Ramesseum" was later given by the Greeks who admired its grandeur.',
     ),
     Temple(
       id: '7',
-      name: 'Abu Simbel',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Rock-cut temples of Ramses II',
+      name: 'Dendera Temple',
+      imagePath: 'assets/image/Dendera Temple.jpeg',
+      shortDescription: ' Built during the Ptolemaic and Roman periods',
       fullDescription:
-          'The Abu Simbel temples are two massive rock temples in southern Egypt built by Pharaoh Ramses II in the 13th century BCE. The complex was relocated in 1968 to avoid being submerged during the creation of Lake Nasser. The temple is famous for its alignment with the sun during solstices.',
+          'Dendera Temple, located north of Luxor, is dedicated to Hathor, the goddess of love, music, and motherhood. Built during the Ptolemaic and Roman periods, the site itself was sacred since the Old Kingdom. The temple features a grand entrance, decorated columns, crypts, rooftop chambers, and a well-preserved roof. Its walls depict rituals, festivals, and astronomical scenes, including the famous Dendera Zodiac. As one of the best-preserved temples in Egypt, it provides rich insight into late-period religious art and architecture.',
     ),
     Temple(
       id: '8',
-      name: 'Tōdai-ji',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Great Eastern Temple',
+      name: 'Kom Ombo Temple',
+      imagePath: 'assets/image/Kom Ombo Temple.jpeg',
+      shortDescription: 'built during the Ptolemaic period',
       fullDescription:
-          'Tōdai-ji is a Buddhist temple complex in Nara, Japan that houses the world\'s largest bronze statue of the Buddha Vairocana. The main hall (Daibutsuden) is the world\'s largest wooden building, despite being only two-thirds the size of the original structure. The temple serves as the Japanese headquarters of the Kegon school of Buddhism.',
+          'Kom Ombo Temple, built during the Ptolemaic period and expanded in the Roman era, is a unique double temple dedicated to Sobek and Horus the Elder. Its symmetrical design includes twin entrances, halls, and sanctuaries for each god. The temple’s walls depict rituals, medical tools, and religious scenes. It represents the duality of good and evil, with Horus symbolizing good and Sobek power and fear. Nearby, the Crocodile Museum houses mummified crocodiles. Despite damage over time, much of the temple remains remarkably intact.',
     ),
     Temple(
       id: '9',
-      name: 'Vishakha Temple',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Ancient Hindu temple',
+      name: 'Philae Temple',
+      imagePath: 'assets/image/Philae Temple.jpeg',
+      shortDescription: 'Was dedicated to the goddess Isis',
       fullDescription:
-          'The Vishakha Temple in Pushkar, India is dedicated to the Hindu goddess Vishakha. The temple features intricate carvings and colorful architecture. Pilgrims visit the temple to bathe in the sacred Pushkar Lake and perform religious rituals during special festivals.',
+          'Philae Temple, built mainly during the Ptolemaic period, was dedicated to the goddess Isis, a major deity of magic, healing, and motherhood. It features elegant architecture, including colonnades, pylons, and the famous Trajan’s Kiosk. Originally on Philae Island, the temple was relocated to Agilkia Island in the 1960s due to flooding from the Aswan High Dam. Worship at the site continued into the 6th century AD, making it one of the last active centers of ancient Egyptian religion. Today, it remains a popular destination with sound-and-light shows bringing its history to life.',
     ),
     Temple(
       id: '10',
-      name: 'Temple of Kukulcan',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Mayan step pyramid',
+      name: 'Seti I Temple',
+      imagePath: 'assets/image/Seti I Temple.jpeg',
+      shortDescription: 'built by Seti I and completed by Ramses II',
       fullDescription:
-          'The Temple of Kukulcan at Chichen Itza, Mexico is a Mesoamerican step-pyramid that dominates the archaeological site. The temple exhibits precise astronomical alignment where the setting sun during equinoxes creates shadows that resemble a serpent descending the pyramid.',
-    ),
-    Temple(
-      id: '11',
-      name: 'Shwedagon Pagoda',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Golden Buddhist stupa',
-      fullDescription:
-          'The Shwedagon Pagoda in Yangon, Myanmar is a 99-meter gilded stupa plated with gold and encrusted with thousands of diamonds. According to legend, it contains relics of four Buddhas. The pagoda is the most sacred Buddhist site in Myanmar and a major pilgrimage destination.',
+          'The Temple of Seti I in Abydos, built by Seti I and completed by Ramses II, is dedicated to Osiris and serves as a memorial to Seti I. It has a rare L-shaped design with seven sanctuaries for various gods, including Seti himself. The temple is renowned for its exquisite reliefs and houses the Abydos King List, a vital record of pharaonic succession. Abydos was a major pilgrimage site, believed to be the burial place of Osiris. Despite its age, the temple remains well-preserved, especially in its inner chambers.',
     ),
   ];
 

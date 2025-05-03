@@ -2,13 +2,10 @@
 import 'package:eye_hours/Basics/profile.dart';
 import 'package:eye_hours/chat_bot.dart';
 import 'package:eye_hours/pages/login_page.dart';
-import 'package:eye_hours/provider/config_provider.dart';
 import 'package:eye_hours/side_menu/Subscription.dart';
 import 'package:eye_hours/side_menu/help_center.dart';
 import 'package:eye_hours/side_menu/terms_and_condition.dart';
-import 'package:eye_hours/widget/custom_drop_down_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -18,9 +15,8 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  String selectedLang = "English";
-  String selectedTheme = "Light";
-  late ConfigProvider configProvider;
+  String selectedLanguage = 'English';
+  final List<String> languages = ['English', 'Arabic'];
 
   @override
   Widget build(BuildContext context) {
@@ -65,58 +61,106 @@ class _SideMenuState extends State<SideMenu> {
               ],
             ),
           ),
+          // Language Selection
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.grey.shade300),
+              ),
+            ),
+            child: ListTile(
+              leading: const Icon(Icons.language, color: Colors.deepOrange),
+              title:
+                  const Text('Select Language', style: TextStyle(fontSize: 16)),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(selectedLanguage),
+                  const Icon(Icons.arrow_drop_down),
+                ],
+              ),
+              onTap: () {
+                _showLanguageDialog(context);
+              },
+            ),
+          ),
           _buildListTile(
             context,
             icon: Icons.person,
-            title: AppLocalizations.of(context)!.profile,
+            title: 'Profile',
             onTap: () => _handleprofile(context),
           ),
           _buildListTile(
             context,
             icon: Icons.subscriptions,
-            title: AppLocalizations.of(context)!.subscription,
+            title: 'Subscription',
             onTap: () => _handleSubscription(context),
           ),
           _buildListTile(
             context,
             icon: Icons.support_agent,
-            title: AppLocalizations.of(context)!.customer,
+            title: 'Customer Service',
             onTap: () => _handleCustomerService(context),
           ),
           _buildListTile(
             context,
             icon: Icons.chat,
-            title: AppLocalizations.of(context)!.chatbot,
+            title: 'Chatbot',
             onTap: () => _handlechatbot(context),
           ),
           Divider(color: Colors.grey[300]),
           _buildListTile(
             context,
             icon: Icons.description,
-            title: AppLocalizations.of(context)!.terms,
+            title: 'Terms and Conditions',
             onTap: () => _handleTermsAndConditions(context),
           ),
           _buildListTile(
             context,
             icon: Icons.help,
-            title: AppLocalizations.of(context)!.help,
+            title: 'Help Center',
             onTap: () => _handleHelpCenter(context),
           ),
           Divider(color: Colors.grey[300]),
-          CustomDropDownMenu(
-            title: AppLocalizations.of(context)!.language,
-            textView: configProvider.isEnglish ? "English" : "عربي",
-            menuItems: ["English", "عربي"],
-            onChange: _onLanguageChange,
-          ),
           _buildListTile(
             context,
             icon: Icons.exit_to_app,
-            title: AppLocalizations.of(context)!.logout,
+            title: 'Log Out',
             onTap: () => _handleLogOut(context),
           ),
         ],
       ),
+    );
+  }
+
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Select Language'),
+          content: Container(
+            width: double.minPositive,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: languages.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ListTile(
+                  title: Text(languages[index]),
+                  onTap: () {
+                    setState(() {
+                      selectedLanguage = languages[index];
+                    });
+                    Navigator.pop(context);
+                    // Here you can add logic to change the app's language
+                    // For example, using a language provider or locale change
+                  },
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -145,12 +189,10 @@ class _SideMenuState extends State<SideMenu> {
       context,
       MaterialPageRoute(builder: (context) => const SubscriptionScreen()),
     );
-    // تنفيذ الاشتراك
   }
 
   void _handleCustomerService(BuildContext context) {
     Navigator.pop(context);
-    // تنفيذ خدمة العملاء
   }
 
   void _handlechatbot(BuildContext context) {
@@ -158,7 +200,6 @@ class _SideMenuState extends State<SideMenu> {
       context,
       MaterialPageRoute(builder: (context) => ChatBotPage()),
     );
-    // تنفيذ الاشتراك
   }
 
   void _handleTermsAndConditions(BuildContext context) {
@@ -166,7 +207,6 @@ class _SideMenuState extends State<SideMenu> {
       context,
       MaterialPageRoute(builder: (context) => const TermsAndConditionsScreen()),
     );
-    // عرض الشروط والأحكام
   }
 
   void _handleHelpCenter(BuildContext context) {
@@ -174,7 +214,6 @@ class _SideMenuState extends State<SideMenu> {
       context,
       MaterialPageRoute(builder: (context) => const HelpCenter()),
     );
-    // عرض مركز المساعدة
   }
 
   void _handleLogOut(BuildContext context) {
@@ -182,10 +221,5 @@ class _SideMenuState extends State<SideMenu> {
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
-    // تنفيذ تسجيل الخروج
-  }
-
-  void _onLanguageChange(String? newLang) {
-    configProvider.ChangeAppLanguage(newLang == "English" ? "en" : "ar");
   }
 }

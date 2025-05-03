@@ -22,91 +22,91 @@ class MainPageStatues extends StatelessWidget {
   final List<Statue> statues = [
     Statue(
       id: '1',
-      name: 'The Great Sphinx',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Ancient Egyptian ',
+      name: 'Colossal Statue of Ramesses',
+      imagePath: 'assets/image/images (8).jpeg',
+      shortDescription: 'was the third pharaoh of Egypt\'s 19th Dynasty',
       fullDescription:
-          'The Great Sphinx of Giza is a limestone statue of a reclining sphinx, a mythical creature with the head of a human and the body of a lion. Facing directly from west to east, it stands on the Giza Plateau on the west bank of the Nile in Giza, Egypt. The face of the Sphinx is generally believed to represent the pharaoh Khafre. Cut from the bedrock, the original shape of the Sphinx has been restored with layers of blocks. It is the oldest known monumental sculpture in Egypt and is commonly believed to have been designed, sculpted, and constructed by ancient Egyptians of the Old Kingdom during the reign of the pharaoh Khafre (c. 2558–2532 BC).',
+          'A colossal statue of Ramesses II, carved from a single block of pink granite quarried in Aswan, stands approximately 11 meters tall and weighs around 83 tons. It was originally located in front of the Ramesseum, his mortuary temple in Luxor, and served as a powerful symbol of his divine authority and royal grandeur. The statue portrays the pharaoh in a majestic seated or standing pose, wearing the royal crown and traditional attire, with a calm yet commanding expression.In 2006, one of the most famous replicas was carefully relocated from Ramses Square in Cairo to the Grand Egyptian Museum using advanced engineering techniques.',
     ),
     Statue(
       id: '2',
-      name: 'Statue of Liberty',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Iconic copper statue in Ne',
+      name: 'The Great Sphinx',
+      imagePath: 'assets/image/2c1ddaf2-60cf-4ad1-88bf-b4157ea3b034.jpg',
+      shortDescription: 'combining the body of lion and the head of a human.',
       fullDescription:
-          'The Statue of Liberty is a colossal neoclassical sculpture on Liberty Island in New York Harbor within New York City. The copper statue, a gift from the people of France to the people of the United States, was designed by French sculptor Frédéric Auguste Bartholdi and its metal framework was built by Gustave Eiffel. The statue was dedicated on October 28, 1886. The statue is a figure of Libertas, a robed Roman liberty goddess. She holds a torch above her head with her right hand, and in her left hand carries a tabula ansata inscribed JULY IV MDCCLXXVI (July 4, 1776 in Roman numerals), the date of the U.S. Declaration of Independence.',
+          'The Great Sphinx of Giza, carved from limestone, stands near the pyramids and likely represents Pharaoh Khafre. It has a lion\'s body and a human head, symbolizing strength and wisdom. Measuring about 73 meters long and 20 meters high, it faces east toward the sunrise. Believed to guard royal tombs, it is linked to the sun god Ra-Horakhty. The Sphinx has been restored many times and remains a symbol of ancient Egyptian mystery and power',
     ),
     Statue(
       id: '3',
-      name: 'Christ the Redeemer',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Art Deco statue ',
+      name: 'King Djoser Statue',
+      imagePath: 'assets/image/Djoser1.jpeg',
+      shortDescription: 'Was The Third Dynasty of the Old Kingdom',
       fullDescription:
-          'Christ the Redeemer is an Art Deco statue of Jesus Christ in Rio de Janeiro, Brazil, created by French sculptor Paul Landowski and built by Brazilian engineer Heitor da Silva Costa, in collaboration with French engineer Albert Caquot. Romanian sculptor Gheorghe Leonida fashioned the face. Constructed between 1922 and 1931, the statue is 30 meters tall, excluding its 8-meter pedestal. The arms stretch 28 meters wide. The statue weighs 635 metric tons, and is located at the peak of the 700-meter Corcovado mountain in the Tijuca Forest National Park overlooking the city of Rio de Janeiro.',
+          'King Djoser was the first to build a stone pyramid—the Step Pyramid at Saqqara—with help from architect Imhotep.His painted limestone statue, about 142 cm tall, was found inside the pyramid and now resides in the Egyptian Museum.It shows Djoser seated in royal robes and a wig, with inlaid eyes and hieroglyphs on the throne.The statue is the oldest known stone statue of an Egyptian king, marking a shift from wood to stone in royal art.It was used in religious rituals and linked to the king\'s spirit (Ka) and the concept of immortality.Despite its simplicity, it reflects dignity, stability, and is a milestone in ancient Egyptian sculpture.',
     ),
     Statue(
       id: '4',
-      name: 'David',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Renaissance masterpiece',
+      name: 'Colossi of Memnon',
+      imagePath: 'assets/image/images (9).jpeg',
+      shortDescription: 'representing King Amenhotep III',
       fullDescription:
-          'David is a masterpiece of Renaissance sculpture created in marble between 1501 and 1504 by the Italian artist Michelangelo. David is a 5.17-meter marble statue of the biblical hero David, a favored subject in the art of Florence. David was originally commissioned as one of a series of statues of prophets to be positioned along the roofline of the east end of Florence Cathedral, but was instead placed in a public square, outside the Palazzo Vecchio, the seat of civic government in Florence, in the Piazza della Signoria, where it was unveiled on 8 September 1504.',
+          'The Colossi of Memnon are two massive statues of Pharaoh Amenhotep III, seated on thrones, located in Luxor\'s west bank.Each statue is about 21 meters tall and weighs over 700 tons, carved from quartz sandstone.They once stood at the entrance of a vast mortuary temple, now mostly ruined.Greek visitors named them "Memnon" after a mythological hero, linking one statue\'s sunrise sounds to legend.The "singing" began after an earthquake in 27 BC and stopped after Roman restoration.Despite erosion and time, they remain iconic symbols of ancient Egyptian grandeur and early tourism.',
     ),
     Statue(
       id: '5',
-      name: 'The Thinker',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Bronze sculpture ',
+      name: 'Statue of Hatshepsut',
+      imagePath: 'assets/image/images (10).jpeg',
+      shortDescription: 'Ruled Egypt during the Eighteenth Dynasty',
       fullDescription:
-          'The Thinker is a bronze sculpture by Auguste Rodin, usually placed on a stone pedestal. The work shows a nude male figure of heroic size sitting on a rock with his chin resting on one hand as though deep in thought, often used as an image to represent philosophy. There are about 28 full-sized bronze casts around the world, in which the figure is about 186 cm high, though not all were made during Rodin\'s lifetime and under his supervision. There are various other versions, several in plaster, and studies and posthumous castings exist in a range of sizes.',
+          'Hatshepsut, titled "Wife of Amun" and "Daughter of Ra," ruled as pharaoh and portrayed herself as a king.Her statues, found mainly at Deir el-Bahari, now reside in museums like the Egyptian Museum and the Met.Made from limestone, granite, or alabaster, the statues were once brightly painted.She appears in male pharaonic attire—kilt, false beard, and crowns—to assert her legitimacy.Statues show her seated on a throne, offering to Amun, or standing at temple gates in colossal form.Despite later attempts to erase her legacy, many statues survived and highlight her power and ingenuity.',
     ),
     Statue(
       id: '6',
-      name: 'Venus de Milo',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Ancient Greek sculpture of Aphrodite',
+      name: 'Queen Nefertiti',
+      imagePath: 'assets/image/Nefertiti.jpeg',
+      shortDescription: 'She was the wife of King Akhenaten (Amenhotep IV)',
       fullDescription:
-          'The Venus de Milo is an ancient Greek statue and one of the most famous works of ancient Greek sculpture. Created between 130 and 100 BC, it is believed to depict Aphrodite, the Greek goddess of love and beauty. It is a marble sculpture, slightly larger than life size at 203 cm high. Its arms and original plinth have been lost. From an inscription that was on its plinth, it is thought to be the work of Alexandros of Antioch. It is currently on permanent display at the Louvre Museum in Paris.',
+          'Queen Nefertiti, who lived in the 14th century BC, was the powerful wife of Pharaoh Akhenaten.She played a major role in the religious shift to worship the sun god Aten and appeared in rituals and battle scenes.Nefertiti may have been the mother of Ankhesenamun and mysteriously disappeared from records.Her famous bust, made by sculptor Thutmose, was found in 1912 in Tell el-Amarna.Now in Berlin\'s Neues Museum, the 48 cm limestone bust is admired for its beauty and artistry.Its removal sparked a lasting controversy, with Egypt demanding its return as a national treasure.',
     ),
     Statue(
       id: '7',
-      name: 'Moai',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Monolithic human ',
+      name: 'Goddess Isis',
+      imagePath: 'assets/image/images (14).jpeg',
+      shortDescription: 'The Famous Goddesses In Ancient Egyptian',
       fullDescription:
-          'Moai, or mo\'ai, are monolithic human figures carved by the Rapa Nui people on Easter Island in eastern Polynesia between the years 1250 and 1500. Nearly half are still at Rano Raraku, the main moai quarry, but hundreds were transported from there and set on stone platforms called ahu around the island\'s perimeter. Almost all moai have overly large heads three-eighths the size of the whole statue. The moai are chiefly the living faces of deified ancestors. The statues still gazed inland across their clan lands when Europeans first visited the island in 1722, but all of them had fallen by the latter part of the 19th century.',
+          'Isis was a powerful Egyptian goddess symbolizing motherhood, magic, and protection.She was the wife of Osiris and mother of Horus, often shown nursing him in statues.The statue typically depicts Isis seated with Horus on her lap, sometimes breastfeeding him.She wears a tight dress and a crown shaped like a throne or a sun disk with horns.Made of bronze or stone, these statues served as protective amulets in temples and tombs.The image of Isis with Horus influenced later Christian art, inspiring depictions of Mary and Jesus.',
     ),
     Statue(
       id: '8',
-      name: 'The Little Mermaid',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Bronze statue ',
+      name: 'King Tutankhamun',
+      imagePath: 'assets/image/tutankhamun.jpeg',
+      shortDescription: 'young pharaoh who ruled Egypt during the 18th',
       fullDescription:
-          'The Little Mermaid is a bronze statue by Edvard Eriksen, depicting a mermaid becoming human. The sculpture is displayed on a rock by the waterside at the Langelinie promenade in Copenhagen, Denmark. It is 1.25 metres tall and weighs 175 kg. Based on the fairy tale of the same name by Danish author Hans Christian Andersen, the small and unimposing statue is a Copenhagen icon and has been a major tourist attraction since its unveiling in 1913. In recent decades it has become a popular target for defacement by vandals and political activists.',
+          'Tutankhamun was a teenage pharaoh of Egypt\'s 18th Dynasty who ruled briefly but became world-famous after his tomb was found in 1922.His golden statue, made of wood and covered in gold with inlaid gems, shows him holding royal symbols with lifelike obsidian eyes.Two black-painted guardian statues stood inside his tomb, representing his Ka and guarding his spirit.The gold in his statues symbolized divinity and eternity, while his poses affirmed royal legitimacy.His statues are rich in spiritual symbolism, including links to death, rebirth, and divine power.Today, his treasures are displayed at the NMEC and will feature prominently at the Grand Egyptian Museum.',
     ),
     Statue(
       id: '9',
-      name: 'Terracotta Army',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Collection of terracotta ',
+      name: 'Queen Cleopatra',
+      imagePath: 'assets/image/images (16).jpeg',
+      shortDescription: 'Enchanted the World with Her Beauty and Intelligenc',
       fullDescription:
-          'The Terracotta Army is a collection of terracotta sculptures depicting the armies of Qin Shi Huang, the first Emperor of China. It is a form of funerary art buried with the emperor in 210–209 BCE with the purpose of protecting the emperor in his afterlife. The figures, dating from approximately the late third century BCE, were discovered in 1974 by local farmers in Lintong County, outside Xi\'an, Shaanxi, China. The figures vary in height according to their roles, with the tallest being the generals. The figures include warriors, chariots and horses.',
+          'Cleopatra, the last queen of the Ptolemaic dynasty, is immortalized in several statues around the world that reflect both her Egyptian and Greek heritage.The most famous is in the British Museum, made of limestone or black granite, combining pharaonic symbolism with Hellenistic style.Another is in Alexandria\'s sunken ruins, believed to be part of an ancient temple, with copies displayed in the modern Library of Alexandria.A Roman-era statue in the Vatican shows Cleopatra with her distinctive hairstyle and a cobra on her forehead.Her statues often include symbols like the cobra, pharaonic crowns, and Isis-like features to emphasize power and divine connection.Sunken statues in Heracleion, including one possibly of Cleopatra, hint at more undiscovered treasures beneath the sea.',
     ),
     Statue(
       id: '10',
-      name: 'The Motherland Calls',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'Commemorative statue in Volgograd',
+      name: 'Pharaoh Thutmose III',
+      imagePath: 'assets/image/IMG-20250420-WA0072.jpg',
+      shortDescription: 'Pharaohs of the Eighteenth Dynasty',
       fullDescription:
-          'The Motherland Calls is a statue in Volgograd, Russia, commemorating the Battle of Stalingrad. It was designed by sculptor Yevgeny Vuchetich and structural engineer Nikolai Nikitin. Declared the tallest statue in the world in 1967, it is the tallest statue in Europe and the tallest statue of a woman in the world. The construction of the monument was started in 1959 and completed in 1967. It is the centerpiece of a memorial complex that includes the ruins of the Battle of Stalingrad, the Eternal Flame and the Hall of Warrior Glory.',
+          'Thutmose III, known as the "Napoleon of Ancient Egypt," ruled from 1479–1425 BC and expanded Egypt into a true empire.He co-ruled with Queen Hatshepsut before becoming sole pharaoh and led 17 successful military campaigns, including the famous Battle of Megiddo.Thutmose reformed Egypt\'s army, introduced chariots, and secured wealth through conquest and tribute.He was a great builder, especially at Karnak, where his victories were recorded in inscriptions.His rare gray schist statue shows him powerfully built, wearing a crown with a cobra, standing over the "Nine Bows," symbolizing defeated enemies.Discovered in 1904 at Karnak, the statue reflects his strength, legacy, and historical importance.',
     ),
     Statue(
       id: '11',
-      name: 'Statue of Unity',
-      imagePath: 'assets/image/4245d0ee8972cda943ab6ae7cb0c48c9.jpg',
-      shortDescription: 'World\'s tallest statue l',
+      name: 'Amenhotep IV',
+      imagePath: 'assets/image/images12.jpg',
+      shortDescription: 'Ruled during the Eighteenth Dynasty',
       fullDescription:
-          'The Statue of Unity is a colossal statue of Indian statesman and independence activist Sardar Vallabhbhai Patel (1875–1950), who was the first Deputy Prime Minister and Home Minister of independent India and an adherent of Mahatma Gandhi. The statue is located in the state of Gujarat, India. It is the world\'s tallest statue with a height of 182 metres (597 feet). It is located on the Narmada River in the Kevadiya colony, facing the Sardar Sarovar Dam 100 kilometres (62 mi) southeast of the city of Vadodara.',
+          'Akhenaten, originally named Amenhotep IV, ruled from about 1353 to 1336 BC and is known for introducing worship of the sun god Aten.He changed his name to Akhenaten, meaning "beneficial to Aten," and started a major religious and artistic revolution.His sandstone statue, with exaggerated features like a long face, bulging belly, and narrow shoulders, reflects the unique Amarna art style.He ruled with his wife Nefertiti and had six daughters, often depicted in warm family scenes unusual for Egyptian royal art.His reign ended mysteriously, and after his death, Egypt returned to the worship of Amun, erasing his legacy.Akhenaten is remembered as a revolutionary who challenged tradition with early ideas of religious monotheism.',
     ),
   ];
 
@@ -130,13 +130,14 @@ class MainPageStatues extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.all(10.0),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.7,
+              mainAxisSpacing: 14,
+              childAspectRatio:
+                  0.65, // Changed from 0.7 to 0.65 to make cards taller
             ),
             itemCount: statues.length,
             itemBuilder: (context, index) {
@@ -173,9 +174,9 @@ class StatueCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black12,
-              blurRadius: 8,
-              offset: Offset(0, 3),
+              color: Colors.black26, // Slightly darker shadow
+              blurRadius: 10,
+              offset: Offset(0, 4),
             ),
           ],
         ),
@@ -185,7 +186,7 @@ class StatueCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 5,
+                flex: 6, // Increased from 5 to 6 to make image area larger
                 child: Hero(
                   tag: 'statue-${statue.id}',
                   child: Container(
@@ -194,6 +195,8 @@ class StatueCard extends StatelessWidget {
                       image: DecorationImage(
                         image: AssetImage(statue.imagePath),
                         fit: BoxFit.cover,
+                        alignment:
+                            Alignment(0, -0.9), // Move image down slightly
                       ),
                     ),
                   ),
@@ -221,7 +224,7 @@ class StatueCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey[700],
-                          height: 1.3,
+                          height: 1.5,
                         ),
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
