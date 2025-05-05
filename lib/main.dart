@@ -24,7 +24,7 @@ class Eye_of_Hours extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      locale: Locale(configProvider.currentLanguage),
+      locale: configProvider.appLocale,
       routes: {
         '/MainPageTemples': (context) => MainPageTemples(),
         '/MainPageStatues': (context) => MainPageStatues(),

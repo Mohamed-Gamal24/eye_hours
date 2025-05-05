@@ -57,33 +57,36 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _buildAppBar() {
     return AppBar(
-      title: const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'EYE ',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Monomakh'),
-          ),
-          Text(
-            'Of',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Monomakh',
-            ),
-          ),
-          Text(
-            ' HORUS 𓂀',
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Monomakh'),
-          ),
-        ],
+      centerTitle: true,
+      title: Text(
+        AppLocalizations.of(context)!.eye,
+        style: TextStyle(
+          fontSize: 24,
+          fontFamily: 'Monomakh',
+          //       fontWeight: FontWeight.bold
+        ),
       ),
+      //   style: TextStyle(
+      //       fontSize: 24,
+      //       fontWeight: FontWeight.bold,
+      //       fontFamily: 'Monomakh'),
+      // ),
+      // Text(
+      //   'Of',
+      //   style: TextStyle(
+      //     fontSize: 20,
+      //     fontWeight: FontWeight.bold,
+      //     fontFamily: 'Monomakh',
+      //   ),
+      // ),
+      // Text(
+      //   ' HORUS 𓂀',
+      //   style: TextStyle(
+      //       fontSize: 24,
+      //       fontWeight: FontWeight.bold,
+      //       fontFamily: 'Monomakh'),
+      // ),
+
       leading: IconButton(
         icon: const Icon(Icons.menu),
         onPressed: () {
@@ -164,7 +167,7 @@ class HomeContent extends StatelessWidget {
           children: [
             const Center(
               child: Text(
-                'Discover the World of Museums',
+                'Discover the World of Museums\n Around You',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,

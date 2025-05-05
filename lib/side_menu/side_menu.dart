@@ -1,4 +1,7 @@
-// widgets/side_menu.dart
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:eye_hours/Basics/profile.dart';
 import 'package:eye_hours/chat_bot.dart';
 import 'package:eye_hours/pages/login_page.dart';
@@ -6,8 +9,6 @@ import 'package:eye_hours/provider/config_provider.dart';
 import 'package:eye_hours/side_menu/Subscription.dart';
 import 'package:eye_hours/side_menu/help_center.dart';
 import 'package:eye_hours/side_menu/terms_and_condition.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SideMenu extends StatefulWidget {
   const SideMenu({super.key});
@@ -17,13 +18,11 @@ class SideMenu extends StatefulWidget {
 }
 
 class _SideMenuState extends State<SideMenu> {
-  String selectedLanguage = 'English';
-  final List<String> languages = ['English', 'Arabic'];
-  late ConfigProvider configProvider;
-
   @override
   Widget build(BuildContext context) {
-    configProvider = Provider.of<ConfigProvider>(context);
+    final configProvider = Provider.of<ConfigProvider>(context);
+    final localizations = AppLocalizations.of(context)!;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -41,23 +40,23 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
             ),
-            child: const Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   'EYE Of HORUS 𓂀',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Monomakh',
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   'Explore Ancient Wonders',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white70,
                     fontSize: 16,
                   ),
@@ -65,7 +64,7 @@ class _SideMenuState extends State<SideMenu> {
               ],
             ),
           ),
-          // Language Selection
+          // Language Selector
           Container(
             decoration: BoxDecoration(
               border: Border(
@@ -74,104 +73,97 @@ class _SideMenuState extends State<SideMenu> {
             ),
             child: ListTile(
               leading: const Icon(Icons.language, color: Colors.deepOrange),
-              title:
-                  const Text('Select Language', style: TextStyle(fontSize: 16)),
+              title: Text(AppLocalizations.of(context)!.select,
+                  style: const TextStyle(fontSize: 16)),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(selectedLanguage),
+                  Text(configProvider.isEnglish ? 'English' : 'العربية'),
                   const Icon(Icons.arrow_drop_down),
                 ],
               ),
-              onTap: () {
-                _showLanguageDialog(context);
-              },
+              onTap: () => _showLanguageDialog(context, configProvider),
             ),
           ),
           _buildListTile(
-            context,
             icon: Icons.person,
-            title: 'Profile',
-            onTap: () => _handleprofile(context),
+            title: AppLocalizations.of(context)!.profile,
+            onTap: () => _navigateTo(context, ProfilePage()),
           ),
           _buildListTile(
-            context,
             icon: Icons.subscriptions,
-            title: 'Subscription',
-            onTap: () => _handleSubscription(context),
+            title: AppLocalizations.of(context)!.subscription,
+            onTap: () => _navigateTo(context, const SubscriptionScreen()),
           ),
           _buildListTile(
-            context,
             icon: Icons.support_agent,
-            title: 'Customer Service',
-            onTap: () => _handleCustomerService(context),
+            title: AppLocalizations.of(context)!.customer,
+            onTap: () => Navigator.pop(context),
           ),
           _buildListTile(
-            context,
             icon: Icons.chat,
-            title: 'Chatbot',
-            onTap: () => _handlechatbot(context),
+            title: AppLocalizations.of(context)!.chatbot,
+            onTap: () => _navigateTo(context, ChatBotPage()),
           ),
           Divider(color: Colors.grey[300]),
           _buildListTile(
-            context,
             icon: Icons.description,
-            title: 'Terms and Conditions',
-            onTap: () => _handleTermsAndConditions(context),
+            title: AppLocalizations.of(context)!.terms,
+            onTap: () => _navigateTo(context, const TermsAndConditionsScreen()),
           ),
           _buildListTile(
-            context,
             icon: Icons.help,
-            title: 'Help Center',
-            onTap: () => _handleHelpCenter(context),
+            title: AppLocalizations.of(context)!.help,
+            onTap: () => _navigateTo(context, const HelpCenter()),
           ),
           Divider(color: Colors.grey[300]),
           _buildListTile(
-            context,
             icon: Icons.exit_to_app,
-            title: 'Log Out',
-            onTap: () => _handleLogOut(context),
+            title: AppLocalizations.of(context)!.logout,
+            onTap: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LoginPage()),
+            ),
           ),
         ],
       ),
     );
   }
 
-  void _showLanguageDialog(BuildContext context) {
+  void _showLanguageDialog(BuildContext context, ConfigProvider provider) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (_) {
         return AlertDialog(
-          title: const Text('Select Language'),
-          content: Container(
-            width: double.minPositive,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: languages.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Text(languages[index]),
-                  onTap: () {
-                    configProvider.changeAppLanguage(
-                        selectedLanguage == "English" ? "en" : "ar");
-
-                    // Here you can add logic to change the app's language
-                    // For example, using a language provider or locale change
-                  },
-                );
-              },
-            ),
+          title: Text(AppLocalizations.of(context)!.select),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('English'),
+                onTap: () {
+                  provider.changeAppLanguage('en');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('العربية'),
+                onTap: () {
+                  provider.changeAppLanguage('ar');
+                  Navigator.pop(context);
+                },
+              ),
+            ],
           ),
         );
       },
     );
   }
 
-  Widget _buildListTile(
-    BuildContext context, {
+  Widget _buildListTile({
     required IconData icon,
     required String title,
-    required Function() onTap,
+    required VoidCallback onTap,
   }) {
     return ListTile(
       leading: Icon(icon, color: Colors.deepOrange),
@@ -180,49 +172,7 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
-  void _handleprofile(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProfilePage()),
-    );
-  }
-
-  void _handleSubscription(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const SubscriptionScreen()),
-    );
-  }
-
-  void _handleCustomerService(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  void _handlechatbot(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ChatBotPage()),
-    );
-  }
-
-  void _handleTermsAndConditions(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TermsAndConditionsScreen()),
-    );
-  }
-
-  void _handleHelpCenter(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const HelpCenter()),
-    );
-  }
-
-  void _handleLogOut(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
+  void _navigateTo(BuildContext context, Widget page) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
   }
 }
