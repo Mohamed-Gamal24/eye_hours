@@ -211,7 +211,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         ),
         child: _isLoading
             ? const CircularProgressIndicator()
-            : const Text('UPDATE PROFILE'),
+            : Text(AppLocalizations.of(context)!.update),
       ),
     );
   }

@@ -21,8 +21,8 @@ class Eye_of_Hours extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: [
-        Locale('en'), // English
-        Locale('ar'), // Spanish
+        Locale('en'),
+        Locale('ar'),
       ],
       locale: configProvider.appLocale,
       routes: {

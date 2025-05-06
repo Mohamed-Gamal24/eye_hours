@@ -2,8 +2,7 @@ import 'package:eye_hours/Basics/Favorite.dart';
 import 'package:eye_hours/Basics/favorite_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:eye_hours/statues/main_statues_page.dart';
-import 'package:eye_hours/statues/main_statues_page.dart';
-import 'package:eye_hours/temples/main_temples_page.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class StatueDetailScreen extends StatefulWidget {
   final Statue statue;
@@ -22,6 +21,10 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
   String displayedFullDesc = '';
   int fullDescIndex = 0;
 
+  // Add FlutterTts instance
+  final FlutterTts flutterTts = FlutterTts();
+  bool isSpeaking = false;
+
   @override
   void initState() {
     super.initState();
@@ -29,19 +32,91 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
 
     // بدء تأثير الكتابة للوصف الكامل بعد تأخير بسيط
     Future.delayed(const Duration(milliseconds: 300), () {
-      animateFullDescription();
+      if (mounted) {
+        animateFullDescription();
+      }
+    });
+
+    // Initialize text to speech
+    _initTts().then((_) {
+      // تشغيل الصوت تلقائياً بعد تهيئة TTS بتأخير بسيط
+      Future.delayed(const Duration(milliseconds: 500), () {
+        if (mounted) {
+          _speak(widget.statue.fullDescription);
+        }
+      });
     });
   }
 
+  @override
+  void dispose() {
+    // Stop speaking when leaving the page
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  // Initialize text to speech
+  Future<void> _initTts() async {
+    // Set language to English
+    await flutterTts.setLanguage("en-US");
+
+    // Set speech rate (0.5 to 2.0)
+    await flutterTts.setSpeechRate(0.5);
+
+    // Set volume
+    await flutterTts.setVolume(1.0);
+
+    // Listen for completion
+    flutterTts.setCompletionHandler(() {
+      if (mounted) {
+        setState(() {
+          isSpeaking = false;
+        });
+      }
+    });
+  }
+
+  // Start speaking function
+  Future<void> _speak(String text) async {
+    if (text.isNotEmpty && mounted) {
+      setState(() {
+        isSpeaking = true;
+      });
+      await flutterTts.speak(text);
+    }
+  }
+
+  // Stop speaking function
+  Future<void> _stop() async {
+    if (mounted) {
+      setState(() {
+        isSpeaking = false;
+      });
+    }
+    await flutterTts.stop();
+  }
+
+  // Toggle between speaking and stopping
+  void _toggleSpeak() {
+    if (isSpeaking) {
+      _stop();
+    } else {
+      // Speak the full statue description
+      _speak(widget.statue.fullDescription);
+    }
+  }
+
   void animateFullDescription() {
-    if (fullDescIndex < widget.statue.fullDescription.length) {
+    if (fullDescIndex < widget.statue.fullDescription.length && mounted) {
       setState(() {
         displayedFullDesc += widget.statue.fullDescription[fullDescIndex];
         fullDescIndex++;
       });
-      Future.delayed(const Duration(milliseconds: 3), () {
+      Future.delayed(const Duration(milliseconds: 5), () {
         // جعل السرعة أسرع (3ms لكل حرف)
-        animateFullDescription();
+        if (mounted) {
+          animateFullDescription();
+        }
       });
     }
   }
@@ -51,12 +126,25 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFF8F8F5),
       appBar: AppBar(
+        title: Text(
+          widget.statue.name,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
+        actions: [
+          // إضافة زر للنطق في شريط التطبيق
+          IconButton(
+            icon: Icon(
+              isSpeaking ? Icons.volume_off : Icons.volume_up,
+              color: Colors.black87,
+            ),
+            onPressed: _toggleSpeak,
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -82,49 +170,52 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget
-                      .statue.name, // اسم التمثال يظهر مباشرة بدون تأثير كتابة
+                  widget.statue.name,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(
-                  icon: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? Colors.red : Colors.grey,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                      if (isFavorite) {
-                        favoritesManager.addFavorite(widget.statue);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Added to favorites'),
-                            duration: Duration(seconds: 2),
-                            action: SnackBarAction(
-                              label: 'VIEW',
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => FavoritePage(),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      } else {
-                        favoritesManager.removeFavorite(widget.statue.id);
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Removed from favorites'),
-                          duration: Duration(seconds: 1),
-                        ));
-                      }
-                    });
-                  },
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: isFavorite ? Colors.red : Colors.grey,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isFavorite = !isFavorite;
+                          if (isFavorite) {
+                            favoritesManager.addFavorite(widget.statue);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Added to favorites'),
+                                duration: Duration(seconds: 2),
+                                action: SnackBarAction(
+                                  label: 'VIEW',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => FavoritePage(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            );
+                          } else {
+                            favoritesManager.removeFavorite(widget.statue.id);
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Removed from favorites'),
+                              duration: Duration(seconds: 1),
+                            ));
+                          }
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -136,7 +227,7 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.statue.shortDescription, // الوصف القصير يظهر مباشرة
+                    widget.statue.shortDescription,
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.black87,
@@ -144,20 +235,28 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
                     ),
                   ),
                   SizedBox(height: 16),
-                  Text(
-                    fullDescIndex == 0
-                        ? ''
-                        : displayedFullDesc, // الوصف الكامل يكتب تدريجياً
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                      height: 1.5,
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          fullDescIndex == 0 ? '' : displayedFullDesc,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black87,
+                            height: 1.5,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
+                        // إيقاف الصوت عند الضغط على زر إكمال الجولة
+                        if (isSpeaking) {
+                          _stop();
+                        }
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -187,6 +286,16 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
             ),
           ),
         ],
+      ),
+      // إضافة زر عائم للنطق
+      floatingActionButton: FloatingActionButton(
+        onPressed: _toggleSpeak,
+        backgroundColor: Color(0xFF5E2B10),
+        child: Icon(
+          isSpeaking ? Icons.stop : Icons.record_voice_over,
+          color: Colors.white,
+        ),
+        tooltip: isSpeaking ? 'Stop Reading' : 'Read Description',
       ),
     );
   }

@@ -61,9 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
       title: Text(
         AppLocalizations.of(context)!.eye,
         style: TextStyle(
+          fontWeight: FontWeight.bold,
           fontSize: 24,
           fontFamily: 'Monomakh',
-          //       fontWeight: FontWeight.bold
         ),
       ),
       //   style: TextStyle(
@@ -143,7 +143,7 @@ class HomeContent extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Container(
-        height: 205,
+        height: 210,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           gradient: const LinearGradient(
@@ -165,9 +165,9 @@ class HomeContent extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Center(
+            Center(
               child: Text(
-                'Discover the World of Museums\n Around You',
+                AppLocalizations.of(context)!.discover,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -175,9 +175,9 @@ class HomeContent extends StatelessWidget {
                 ),
               ),
             ),
-            const Center(
+            Center(
               child: Text(
-                'Around You',
+                AppLocalizations.of(context)!.around_you,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -186,8 +186,8 @@ class HomeContent extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Embark on an interactive journey and enjoy personalized content with no need for VR.',
+            Text(
+              AppLocalizations.of(context)!.journey,
               style: TextStyle(
                 color: Colors.white70,
                 fontSize: 16,
