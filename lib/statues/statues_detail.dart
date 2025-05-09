@@ -37,15 +37,8 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
       }
     });
 
-    // Initialize text to speech
-    _initTts().then((_) {
-      // تشغيل الصوت تلقائياً بعد تهيئة TTS بتأخير بسيط
-      Future.delayed(const Duration(milliseconds: 500), () {
-        if (mounted) {
-          _speak(widget.statue.fullDescription);
-        }
-      });
-    });
+    // Initialize text to speech without auto-playing
+    _initTts();
   }
 
   @override
@@ -257,12 +250,8 @@ class _StatueDetailScreenState extends State<StatueDetailScreen> {
                         if (isSpeaking) {
                           _stop();
                         }
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainPageStatues(),
-                          ),
-                        );
+                        // استخدام pop للعودة للصفحة السابقة بدلاً من استبدال الصفحة الحالية
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF5E2B10),

@@ -220,12 +220,8 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                         if (isSpeaking) {
                           _stop();
                         }
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainPageTemples(),
-                          ),
-                        );
+                        // استخدام pop للعودة للصفحة السابقة بدلاً من استبدال الصفحة الحالية
+                        Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF5E2B10),

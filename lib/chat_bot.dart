@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -12,6 +14,10 @@ class _ChatBotPageState extends State<ChatBotPage> {
   final List<ChatMessage> _messages = [];
   final ScrollController _scrollController = ScrollController();
   bool _isTyping = false;
+
+  // API URL
+  final String apiUrl =
+      'https://ancient-egypt-chatbot-ai-agent-production.up.railway.app/chat';
 
   @override
   void initState() {
@@ -28,7 +34,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
       ));
     });
 
-    // تأثير الكتابة التدريجية
+    // Typing effect
     for (int i = 0; i <= text.length; i++) {
       await Future.delayed(const Duration(milliseconds: 30));
       if (!mounted) return;
@@ -52,31 +58,48 @@ class _ChatBotPageState extends State<ChatBotPage> {
       _messages.add(ChatMessage(text: text, isUser: true));
     });
     _scrollToBottom();
-    _simulateBotResponse(text);
+    _getBotResponse(text);
   }
 
-  void _simulateBotResponse(String userMessage) {
+  Future<void> _getBotResponse(String userMessage) async {
     setState(() => _isTyping = true);
 
-    Future.delayed(const Duration(seconds: 1), () {
-      _addBotMessage(_generateResponse(userMessage));
+    try {
+      // Prepare request data
+      final Map<String, String> requestData = {
+        'question': userMessage,
+      };
+
+      // Send POST request to API
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        // Handle successful response
+        final responseData = jsonDecode(response.body);
+        String botResponse =
+            responseData['response'] ?? "Sorry, I didn't understand that.";
+        _addBotMessage(botResponse);
+      } else {
+        // Handle error
+        _addBotMessage(
+            "Sorry, there was a connection error. Please try again later.");
+        print('Request failed with status: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      // Handle exceptions
+      _addBotMessage(
+          "Sorry, there was a connection error. Please check your internet connection and try again.");
+      print('Exception occurred: $e');
+    } finally {
       setState(() => _isTyping = false);
-    });
-  }
-
-  String _generateResponse(String userMessage) {
-    userMessage = userMessage.toLowerCase();
-
-    if (userMessage.contains("hello") || userMessage.contains("hi")) {
-      return "Hello there! How can I help you today?";
-    } else if (userMessage.contains("thank") ||
-        userMessage.contains("thanks")) {
-      return "You're welcome! Is there anything else?";
-    } else if (userMessage.contains("your name") ||
-        userMessage.contains("who are you")) {
-      return "I'm an intelligent chatbot";
     }
-    return "I didn't understand your question, could you clarify?";
   }
 
   void _scrollToBottom() {
@@ -191,7 +214,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
             backgroundColor: Colors.transparent,
             backgroundImage:
                 AssetImage('assets/image/483720d21e5105ecbf32b62355020d39.jpg'),
-            child: Icon(Icons.android, color: Colors.white),
           ),
           SizedBox(width: 8),
           Text("Typing...", style: TextStyle(color: Colors.grey)),
