@@ -146,10 +146,10 @@ class _MuseumDetailPageState extends State<MuseumDetailPage> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         'Description',
                         style: TextStyle(
                           fontSize: 20,
@@ -174,11 +174,11 @@ class _MuseumDetailPageState extends State<MuseumDetailPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleSpeak,
         backgroundColor: Colors.deepOrange,
+        tooltip: isSpeaking ? 'Stop Reading' : 'Read Description',
         child: Icon(
           isSpeaking ? Icons.stop : Icons.record_voice_over,
           color: Colors.white,
         ),
-        tooltip: isSpeaking ? 'Stop Reading' : 'Read Description',
       ),
     );
   }

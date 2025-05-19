@@ -110,11 +110,13 @@ class MainPageStatues extends StatelessWidget {
     ),
   ];
 
+  MainPageStatues({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Statue Gallery',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -132,7 +134,7 @@ class MainPageStatues extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 12,
               mainAxisSpacing: 14,
@@ -153,7 +155,7 @@ class MainPageStatues extends StatelessWidget {
 class StatueCard extends StatelessWidget {
   final Statue statue;
 
-  const StatueCard({required this.statue});
+  const StatueCard({super.key, required this.statue});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +174,7 @@ class StatueCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26, // Slightly darker shadow
               blurRadius: 10,
@@ -195,8 +197,8 @@ class StatueCard extends StatelessWidget {
                       image: DecorationImage(
                         image: AssetImage(statue.imagePath),
                         fit: BoxFit.cover,
-                        alignment:
-                            Alignment(0, -0.9), // Move image down slightly
+                        alignment: const Alignment(
+                            0, -0.9), // Move image down slightly
                       ),
                     ),
                   ),
@@ -211,14 +213,14 @@ class StatueCard extends StatelessWidget {
                     children: [
                       Text(
                         statue.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         statue.shortDescription,
                         style: TextStyle(

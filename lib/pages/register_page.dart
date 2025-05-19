@@ -1,3 +1,4 @@
+// أولاً: إضافة الحزم المطلوبة في بداية الملف
 import 'package:eye_hours/Home_Screen.dart';
 import 'package:eye_hours/pages/login_page.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,195 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:http/http.dart' as http; // إضافة حزمة http للتعامل مع API
+import 'dart:convert'; // للتعامل مع بيانات JSON
+import 'package:shared_preferences/shared_preferences.dart'; // لتخزين رمز المصادقة JWT
+import 'package:connectivity_plus/connectivity_plus.dart';
+
+// نمودج المستخدم للتسجيل
+class RegisterUserModel {
+  final String email;
+  final String password;
+  final String? name;
+  final String? phoneNumber;
+
+  RegisterUserModel({
+    required this.email,
+    required this.password,
+    this.name,
+    this.phoneNumber,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'email': email,
+      'password': password,
+      if (name != null) 'name': name,
+      if (phoneNumber != null) 'phoneNumber': phoneNumber,
+    };
+  }
+}
+
+// توسيع خدمة المصادقة المنشأة سابقًا
+class AuthService {
+  static const String baseUrl =
+      'http://api-rewan1.runasp.net/api/AuthUser/register'; // تم تصحيح العنوان الأساسي للـ API
+
+  // دالة تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
+  static Future<AuthResponse> login(String email, String password) async {
+    // التحقق من اتصال الإنترنت
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      throw Exception(
+          'No internet connection. Please check your connectivity and try again.');
+    }
+
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/AuthUser/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return AuthResponse.fromJson(jsonDecode(response.body));
+      } else {
+        // إذا لم تنجح العملية، قم برمي استثناء مع الرسالة المناسبة
+        try {
+          final errorJson = jsonDecode(response.body);
+          final errorMessage =
+              errorJson['message'] ?? 'Failed to login. Please try again.';
+          throw Exception(errorMessage);
+        } catch (parseError) {
+          throw Exception('Failed to login. Server error occurred.');
+        }
+      }
+    } catch (e) {
+      if (e is http.ClientException) {
+        throw Exception(
+            'Connection error. Please check the server URL and try again.');
+      }
+      rethrow; // إعادة رمي أي استثناءات أخرى
+    }
+  }
+
+  // دالة تسجيل مستخدم جديد - تم تعديلها
+  static Future<AuthResponse> register(RegisterUserModel user) async {
+    // التحقق من اتصال الإنترنت
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      throw Exception(
+          'No internet connection. Please check your connectivity and try again.');
+    }
+
+    try {
+      // تصحيح عنوان URL
+      final response = await http.post(
+        Uri.parse('$baseUrl/api/AuthUser/register'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(user.toJson()),
+      );
+
+      print('Register API Response Status: ${response.statusCode}');
+      print('Register API Response Body: ${response.body}');
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final jsonResponse = jsonDecode(response.body);
+        return AuthResponse.fromJson(jsonResponse);
+      } else {
+        // معالجة أخطاء التسجيل بشكل أفضل
+        try {
+          final errorJson = jsonDecode(response.body);
+          String errorMessage;
+
+          // محاولة الحصول على رسالة الخطأ من أماكن مختملة في الـ JSON
+          if (errorJson.containsKey('message')) {
+            errorMessage = errorJson['message'];
+          } else if (errorJson.containsKey('errors')) {
+            // في حالة وجود مصفوفة أخطاء
+            final errors = errorJson['errors'];
+            if (errors is Map) {
+              errorMessage = errors.values.first is List
+                  ? errors.values.first.first
+                  : errors.values.first.toString();
+            } else if (errors is List && errors.isNotEmpty) {
+              errorMessage = errors.first.toString();
+            } else {
+              errorMessage = 'Registration failed due to validation errors.';
+            }
+          } else {
+            errorMessage = 'Failed to register. Please try again later.';
+          }
+
+          throw Exception(errorMessage);
+        } catch (parseError) {
+          // في حالة حدوث خطأ أثناء تحليل JSON
+          throw Exception('Failed to register. Server error occurred.');
+        }
+      }
+    } catch (e) {
+      if (e is http.ClientException) {
+        throw Exception(
+            'Connection error. Please check the server URL and try again.');
+      } else if (e is FormatException) {
+        throw Exception(
+            'Failed to process server response. Please try again later.');
+      }
+      rethrow; // إعادة رمي أي استثناءات أخرى
+    }
+  }
+
+  // حفظ رمز المصادقة في التخزين المحلي
+  static Future<void> saveToken(String token, String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+    await prefs.setString('user_id', userId);
+  }
+
+  // الحصول على رمز المصادقة من التخزين المحلي
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('auth_token');
+  }
+
+  // مسح رمز المصادقة عند تسجيل الخروج
+  static Future<void> clearToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('auth_token');
+    await prefs.remove('user_id');
+  }
+}
+
+// إضافة نموذج لاستجابة API
+class AuthResponse {
+  final String token;
+  final String userId;
+  final String message;
+  final bool success;
+
+  AuthResponse({
+    required this.token,
+    required this.userId,
+    required this.message,
+    required this.success,
+  });
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      token: json['token'] ?? '',
+      userId: json['userId'] ?? '',
+      message: json['message'] ?? '',
+      success: json['success'] ?? false,
+    );
+  }
+}
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,6 +207,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  // إضافة حقل اسم المستخدم (اختياري)
+  final _nameController = TextEditingController();
 
   bool _isLoading = false;
   String? _errorMessage;
@@ -26,6 +218,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _nameController.dispose();
     super.dispose();
   }
 
@@ -47,13 +240,13 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   }
 
-  // Sign up with Email and Password
+  // تعديل دالة التسجيل لاستخدام API بدلاً من Firebase مباشرة
   Future<void> _signUpWithEmailPassword() async {
-    // Basic validation
+    // التحقق الأساسي
     if (_emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty) {
@@ -66,31 +259,73 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
+    // التحقق من صحة عنوان البريد الإلكتروني
+    bool isValidEmail = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+        .hasMatch(_emailController.text.trim());
+    if (!isValidEmail) {
+      _showError('Please enter a valid email address');
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // التحقق من اتصال الإنترنت قبل محاولة التسجيل
+      final connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        _showError(
+            'No internet connection. Please check your connectivity and try again.');
+        return;
+      }
+
+      // إنشاء نموذج للمستخدم الجديد
+      final newUser = RegisterUserModel(
         email: _emailController.text.trim(),
         password: _passwordController.text,
+        name: _nameController.text.isNotEmpty
+            ? _nameController.text.trim()
+            : null,
       );
-      _navigateToHome();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        _showError('The password provided is too weak');
-      } else if (e.code == 'email-already-in-use') {
-        _showError('An account already exists for this email');
+
+      // استدعاء API للتسجيل
+      final authResponse = await AuthService.register(newUser);
+
+      if (authResponse.success) {
+        // حفظ الرمز والمعرف
+        await AuthService.saveToken(authResponse.token, authResponse.userId);
+
+        // يمكن أيضا تسجيل الدخول مع Firebase إذا كنت بحاجة لذلك
+        try {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+          );
+        } catch (e) {
+          // يمكن التعامل مع أخطاء Firebase هنا، لكن لا تقلق كثيرًا
+          // طالما أن التسجيل عبر API نجح
+          print('Firebase registration failed: $e');
+        }
+
+        // التنقل إلى الصفحة الرئيسية بعد التسجيل بنجاح
+        _navigateToHome();
       } else {
-        _showError('Registration failed: ${e.message}');
+        _showError(authResponse.message.isNotEmpty
+            ? authResponse.message
+            : 'Registration failed. Please try again.');
       }
     } catch (e) {
-      _showError('An error occurred: $e');
+      if (e is Exception) {
+        _showError(e.toString().replaceAll('Exception: ', ''));
+      } else {
+        _showError('An error occurred during registration: $e');
+      }
     }
   }
 
-  // Facebook Registration
+  // تسجيل الدخول باستخدام Facebook
   Future<void> _signUpWithFacebook() async {
     setState(() {
       _isLoading = true;
@@ -98,24 +333,41 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
+      // التحقق من اتصال الإنترنت
+      final connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        _showError(
+            'No internet connection. Please check your connectivity and try again.');
+        return;
+      }
+
+      // بدء عملية تسجيل الدخول
       final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
+        // الحصول على معلومات المستخدم من Facebook
+        final userData = await FacebookAuth.instance.getUserData();
+
+        // إنشاء بيانات اعتماد من رمز الوصول
         final OAuthCredential credential = FacebookAuthProvider.credential(
           result.accessToken!.tokenString,
         );
 
+        // يمكن هنا استخدام API لتسجيل المستخدم بواسطة Facebook
+        // أو الاستمرار مع Firebase
+
+        // تسجيل الدخول مع Firebase باستخدام بيانات الاعتماد
         await FirebaseAuth.instance.signInWithCredential(credential);
         _navigateToHome();
       } else {
-        _showError('Facebook registration canceled or failed');
+        _showError('Facebook registration was cancelled or failed');
       }
     } catch (e) {
-      _showError('Facebook sign up failed: $e');
+      _showError('Failed to register with Facebook: $e');
     }
   }
 
-  // Google Registration
+  // تسجيل الدخول باستخدام Google
   Future<void> _signUpWithGoogle() async {
     setState(() {
       _isLoading = true;
@@ -123,29 +375,41 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      if (googleUser == null) {
-        _showError('Google sign up canceled');
+      // التحقق من اتصال الإنترنت
+      final connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        _showError(
+            'No internet connection. Please check your connectivity and try again.');
         return;
       }
 
+      // بدء تدفق تسجيل الدخول باستخدام Google
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser == null) {
+        _showError('Google registration was cancelled');
+        return;
+      }
+
+      // الحصول على تفاصيل المصادقة من الطلب
       final GoogleSignInAuthentication googleAuth =
           await googleUser.authentication;
 
+      // إنشاء بيانات اعتماد جديدة
       final OAuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
+      // تسجيل الدخول باستخدام بيانات الاعتماد
       await FirebaseAuth.instance.signInWithCredential(credential);
       _navigateToHome();
     } catch (e) {
-      _showError('Google sign up failed: $e');
+      _showError('Failed to register with Google: $e');
     }
   }
 
-  // Apple Registration
+  // تسجيل الدخول باستخدام Apple
   Future<void> _signUpWithApple() async {
     setState(() {
       _isLoading = true;
@@ -153,6 +417,15 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
+      // التحقق من اتصال الإنترنت
+      final connectivityResult = await Connectivity().checkConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        _showError(
+            'No internet connection. Please check your connectivity and try again.');
+        return;
+      }
+
+      // طلب بيانات اعتماد للمستخدم
       final appleCredential = await SignInWithApple.getAppleIDCredential(
         scopes: [
           AppleIDAuthorizationScopes.email,
@@ -160,15 +433,17 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
       );
 
+      // إنشاء بيانات اعتماد OAuth
       final OAuthCredential credential = OAuthProvider('apple.com').credential(
         idToken: appleCredential.identityToken,
         accessToken: appleCredential.authorizationCode,
       );
 
+      // تسجيل الدخول باستخدام بيانات الاعتماد
       await FirebaseAuth.instance.signInWithCredential(credential);
       _navigateToHome();
     } catch (e) {
-      _showError('Apple sign up failed: $e');
+      _showError('Failed to register with Apple: $e');
     }
   }
 
@@ -248,6 +523,30 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: const TextStyle(color: Colors.red),
                             ),
                           ),
+                        // إضافة حقل الاسم (اختياري)
+                        TextField(
+                          controller: _nameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Full Name (Optional)',
+                            labelStyle: TextStyle(
+                              color: Colors.black87,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.person_outline,
+                              size: 28,
+                              color: Colors.black87,
+                            ),
+                            border: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black87),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                        const SizedBox(height: 20),
                         // Email field
                         TextField(
                           controller: _emailController,
@@ -461,7 +760,8 @@ class _RegisterPageState extends State<RegisterPage> {
                               : () {
                                   Navigator.of(context).pushReplacement(
                                     MaterialPageRoute(
-                                        builder: (context) => HomeScreen()),
+                                        builder: (context) =>
+                                            const HomeScreen()),
                                   );
                                 },
                           child: Text(

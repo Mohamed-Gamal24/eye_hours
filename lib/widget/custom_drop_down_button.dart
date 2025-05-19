@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomDropDownMenu extends StatelessWidget {
-  CustomDropDownMenu({
+  const CustomDropDownMenu({
     super.key,
     required this.title,
     required this.textView,
@@ -24,7 +24,7 @@ class CustomDropDownMenu extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(title, style: Theme.of(context).textTheme.displayMedium),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class CustomDropDownMenu extends StatelessWidget {
             border: Border.all(width: 1, color: Colors.orange),
           ),
           child: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 Expanded(

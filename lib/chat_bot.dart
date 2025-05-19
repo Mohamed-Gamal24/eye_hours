@@ -165,8 +165,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
   }
 
   Widget _buildBotAvatar() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 8),
+    return const Padding(
+      padding: EdgeInsets.only(right: 8),
       child: CircleAvatar(
         radius: 20,
         backgroundColor: Colors.transparent,

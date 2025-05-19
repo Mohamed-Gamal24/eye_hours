@@ -40,23 +40,23 @@ class _SideMenuState extends State<SideMenu> {
                 ),
               ),
             ),
-            child: Column(
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   'EYE Of HORUS 𓂀',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Monomakh',
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Text(
                   'Explore Ancient Wonders',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white70,
                     fontSize: 16,
                   ),
@@ -88,7 +88,7 @@ class _SideMenuState extends State<SideMenu> {
           _buildListTile(
             icon: Icons.person,
             title: AppLocalizations.of(context)!.profile,
-            onTap: () => _navigateTo(context, ProfilePage()),
+            onTap: () => _navigateTo(context, const ProfilePage()),
           ),
           _buildListTile(
             icon: Icons.subscriptions,
@@ -103,7 +103,7 @@ class _SideMenuState extends State<SideMenu> {
           _buildListTile(
             icon: Icons.chat,
             title: AppLocalizations.of(context)!.chatbot,
-            onTap: () => _navigateTo(context, ChatBotPage()),
+            onTap: () => _navigateTo(context, const ChatBotPage()),
           ),
           Divider(color: Colors.grey[300]),
           _buildListTile(

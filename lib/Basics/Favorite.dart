@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:eye_hours/statues/main_statues_page.dart';
 
 class FavoritePage extends StatefulWidget {
-  const FavoritePage({Key? key}) : super(key: key);
+  const FavoritePage({super.key});
 
   @override
   _FavoritePageState createState() => _FavoritePageState();
@@ -39,15 +39,19 @@ class _FavoritePageState extends State<FavoritePage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        centerTitle: true,
+        title: const Text(
           'Favorites',
-          style: TextStyle(fontSize: 26),
+          style: TextStyle(
+            fontSize: 26,
+          ),
         ),
         backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.black,
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: Colors.white,
-          tabs: [
+          tabs: const [
             Tab(text: 'All'),
             Tab(text: 'Statues'),
             Tab(text: 'Temples'),
@@ -81,12 +85,12 @@ class _FavoritePageState extends State<FavoritePage>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          const Icon(
             Icons.favorite_border,
             size: 80,
             color: Colors.grey,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Text(
             message,
             style: TextStyle(
@@ -94,7 +98,7 @@ class _FavoritePageState extends State<FavoritePage>
               color: Colors.grey[700],
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             'Add items to your favorites by clicking the heart icon',
             textAlign: TextAlign.center,
@@ -109,7 +113,7 @@ class _FavoritePageState extends State<FavoritePage>
 
   Widget _buildAllFavoritesList(List<Map<String, dynamic>> items) {
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: items.length,
       itemBuilder: (context, index) {
         final item = items[index];
@@ -121,14 +125,14 @@ class _FavoritePageState extends State<FavoritePage>
           return _buildTempleCard(item['item'] as Temple);
         }
 
-        return SizedBox.shrink(); // Fallback
+        return const SizedBox.shrink(); // Fallback
       },
     );
   }
 
   Widget _buildStatuesList(List<Statue> statues) {
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: statues.length,
       itemBuilder: (context, index) {
         final statue = statues[index];
@@ -139,7 +143,7 @@ class _FavoritePageState extends State<FavoritePage>
 
   Widget _buildTemplesList(List<Temple> temples) {
     return ListView.builder(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       itemCount: temples.length,
       itemBuilder: (context, index) {
         final temple = temples[index];
@@ -150,13 +154,13 @@ class _FavoritePageState extends State<FavoritePage>
 
   Widget _buildStatueCard(Statue statue) {
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(12),
+        contentPadding: const EdgeInsets.all(12),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.asset(
@@ -168,7 +172,7 @@ class _FavoritePageState extends State<FavoritePage>
         ),
         title: Text(
           statue.name,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
           statue.shortDescription,
@@ -176,7 +180,7 @@ class _FavoritePageState extends State<FavoritePage>
           overflow: TextOverflow.ellipsis,
         ),
         trailing: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.red),
+          icon: const Icon(Icons.favorite, color: Colors.red),
           onPressed: () {
             // Remove from favorites
             setState(() {
@@ -184,7 +188,7 @@ class _FavoritePageState extends State<FavoritePage>
             });
 
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Removed from favorites'),
                 duration: Duration(seconds: 1),
               ),
@@ -209,13 +213,13 @@ class _FavoritePageState extends State<FavoritePage>
 
   Widget _buildTempleCard(Temple temple) {
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(12),
+        contentPadding: const EdgeInsets.all(12),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.asset(
@@ -227,7 +231,7 @@ class _FavoritePageState extends State<FavoritePage>
         ),
         title: Text(
           temple.name,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
           temple.shortDescription,
@@ -235,7 +239,7 @@ class _FavoritePageState extends State<FavoritePage>
           overflow: TextOverflow.ellipsis,
         ),
         trailing: IconButton(
-          icon: Icon(Icons.favorite, color: Colors.red),
+          icon: const Icon(Icons.favorite, color: Colors.red),
           onPressed: () {
             // Remove from favorites
             setState(() {
@@ -243,7 +247,7 @@ class _FavoritePageState extends State<FavoritePage>
             });
 
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Removed from favorites'),
                 duration: Duration(seconds: 1),
               ),

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => ConfigProvider(), child: Eye_of_Hours()));
+      create: (context) => ConfigProvider(), child: const Eye_of_Hours()));
 }
 
 class Eye_of_Hours extends StatelessWidget {
@@ -20,7 +20,7 @@ class Eye_of_Hours extends StatelessWidget {
 
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: [
+      supportedLocales: const [
         Locale('en'),
         Locale('ar'),
       ],
@@ -30,7 +30,7 @@ class Eye_of_Hours extends StatelessWidget {
         '/MainPageStatues': (context) => MainPageStatues(),
       },
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // تأخير لمدة 3 ثواني ثم الانتقال إلى الشاشة الرئيسية
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
   }

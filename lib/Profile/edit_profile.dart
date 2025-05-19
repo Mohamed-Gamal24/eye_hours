@@ -8,12 +8,12 @@ class EditProfilePage extends StatefulWidget {
   final String currentGender;
 
   const EditProfilePage({
-    Key? key,
+    super.key,
     required this.currentFirstName,
     required this.currentLastName,
     required this.currentEmail,
     required this.currentGender,
-  }) : super(key: key);
+  });
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -64,7 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Profile updated successfully'),
           backgroundColor: Colors.green,
         ),
@@ -87,7 +87,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.edit,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),

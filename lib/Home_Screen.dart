@@ -22,10 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // قائمة بالصفحات المرتبطة بكل أيقونة
   final List<Widget> _pages = [
-    HomeContent(), // محتوى الصفحة الرئيسية الحالي
-    ScanPage(),
-    FavoritePage(),
-    ProfilePage(),
+    const HomeContent(), // محتوى الصفحة الرئيسية الحالي
+    const ScanPage(),
+    const FavoritePage(),
+    const ProfilePage(),
   ];
 
   @override
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const SideMenu(),
       body: _pages[_currentIndex], // عرض الصفحة الحالية
       bottomNavigationBar: CurvedNavigationBar(
-        color: Color(0xFFFF5722),
+        color: const Color(0xFFFF5722),
         backgroundColor: Colors.transparent,
         items: const <Widget>[
           Icon(Icons.home, size: 30),
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       centerTitle: true,
       title: Text(
         AppLocalizations.of(context)!.eye,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 24,
           fontFamily: 'Monomakh',
@@ -168,7 +168,7 @@ class HomeContent extends StatelessWidget {
             Center(
               child: Text(
                 AppLocalizations.of(context)!.discover,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -178,7 +178,7 @@ class HomeContent extends StatelessWidget {
             Center(
               child: Text(
                 AppLocalizations.of(context)!.around_you,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -188,7 +188,7 @@ class HomeContent extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               AppLocalizations.of(context)!.journey,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white70,
                 fontSize: 16,
               ),
@@ -199,7 +199,7 @@ class HomeContent extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChatBotPage(),
+                    builder: (context) => const ChatBotPage(),
                   ),
                 );
               },
@@ -216,7 +216,7 @@ class HomeContent extends StatelessWidget {
                 children: [
                   Text(
                     AppLocalizations.of(context)!.ask,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

@@ -5,6 +5,82 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:http/http.dart' as http; // إضافة حزمة http للتعامل مع API
+import 'dart:convert'; // للتعامل مع بيانات JSON
+import 'package:shared_preferences/shared_preferences.dart'; // لتخزين رمز المصادقة JWT
+
+// إضافة نموذج لاستجابة API
+class AuthResponse {
+  final String token;
+  final String userId;
+  final String message;
+  final bool success;
+
+  AuthResponse({
+    required this.token,
+    required this.userId,
+    required this.message,
+    required this.success,
+  });
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    return AuthResponse(
+      token: json['token'] ?? '',
+      userId: json['userId'] ?? '',
+      message: json['message'] ?? '',
+      success: json['success'] ?? false,
+    );
+  }
+}
+
+// إضافة خدمة API للمصادقة
+class AuthService {
+  static const String baseUrl =
+      'https://your-api-domain.com'; // استبدل هذا بعنوان API الخاص بك
+
+  // دالة تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
+  static Future<AuthResponse> login(String email, String password) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/AuthUser/login'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'email': email,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return AuthResponse.fromJson(jsonDecode(response.body));
+    } else {
+      // إذا لم تنجح العملية، قم برمي استثناء مع الرسالة المناسبة
+      final errorJson = jsonDecode(response.body);
+      final errorMessage = errorJson['message'] ?? 'Failed to login';
+      throw Exception(errorMessage);
+    }
+  }
+
+  // حفظ رمز المصادقة في التخزين المحلي
+  static Future<void> saveToken(String token, String userId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+    await prefs.setString('user_id', userId);
+  }
+
+  // الحصول على رمز المصادقة من التخزين المحلي
+  static Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('auth_token');
+  }
+
+  // مسح رمز المصادقة عند تسجيل الخروج
+  static Future<void> clearToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('auth_token');
+    await prefs.remove('user_id');
+  }
+}
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,14 +121,14 @@ class _LoginPageState extends State<LoginPage> {
 
   void _navigateToHome() {
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
     );
   }
 
-  // Email/Password Login
+  // تعديل دالة تسجيل الدخول لاستخدام API بدلاً من Firebase مباشرة
   Future<void> _signInWithEmailPassword() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      _showError('Email and password cannot be empty');
+      _showError('البريد الإلكتروني وكلمة المرور لا يمكن أن يكونا فارغين');
       return;
     }
 
@@ -62,21 +138,36 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text,
+      // استدعاء API للمصادقة
+      final authResponse = await AuthService.login(
+        _emailController.text.trim(),
+        _passwordController.text,
       );
-      _navigateToHome();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        _showError('No user found for that email');
-      } else if (e.code == 'wrong-password') {
-        _showError('Wrong password provided');
+
+      if (authResponse.success) {
+        // حفظ الرمز والمعرف
+        await AuthService.saveToken(authResponse.token, authResponse.userId);
+
+        // بعد ذلك يمكنك استخدام Firebase للمصادقة إذا كنت بحاجة للاستمرار مع Firebase
+        // هذا مثال لكيفية استخدام الرمز المخصص مع Firebase
+        try {
+          await FirebaseAuth.instance.signInWithCustomToken(authResponse.token);
+        } catch (e) {
+          // يمكنك التعامل مع أخطاء Firebase هنا إذا لزم الأمر
+          print('Firebase custom token sign in failed: $e');
+          // لكن يمكننا الاستمرار طالما أننا حصلنا على استجابة ناجحة من API الخاص بنا
+        }
+
+        _navigateToHome();
       } else {
-        _showError('Login failed: ${e.message}');
+        _showError(authResponse.message);
       }
     } catch (e) {
-      _showError('An error occurred: $e');
+      if (e is Exception) {
+        _showError(e.toString().replaceAll('Exception: ', ''));
+      } else {
+        _showError('حدث خطأ أثناء تسجيل الدخول: $e');
+      }
     }
   }
 
@@ -455,7 +546,7 @@ class _LoginPageState extends State<LoginPage> {
                             : () {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen()),
+                                      builder: (context) => const HomeScreen()),
                                 );
                               },
                         child: Text(

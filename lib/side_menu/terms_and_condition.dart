@@ -190,7 +190,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
         onPressed: () {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         },
         icon: const Icon(Icons.check_circle_outline, color: Colors.white),

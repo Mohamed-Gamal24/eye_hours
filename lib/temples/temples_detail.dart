@@ -7,7 +7,7 @@ import 'package:flutter_tts/flutter_tts.dart';
 class TempleDetailScreen extends StatefulWidget {
   final Temple templee;
 
-  const TempleDetailScreen({Key? key, required this.templee}) : super(key: key);
+  const TempleDetailScreen({super.key, required this.templee});
 
   @override
   _TempleDetailScreenState createState() => _TempleDetailScreenState();
@@ -87,7 +87,7 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF8F8F5),
+      backgroundColor: const Color(0xFFF8F8F5),
       appBar: AppBar(
         title: Text(
           widget.templee.name,
@@ -95,7 +95,7 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black87),
+          icon: const Icon(Icons.arrow_back, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
@@ -114,6 +114,7 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
           Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: double.infinity,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Hero(
               tag: 'temple-${widget.templee.id}',
               child: ClipRRect(
@@ -124,17 +125,16 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                 ),
               ),
             ),
-            margin: EdgeInsets.symmetric(horizontal: 16),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   widget.templee.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -153,15 +153,16 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                             favoritesManager.addFavoriteTemple(widget.templee);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Added to favorites'),
-                                duration: Duration(seconds: 2),
+                                content: const Text('Added to favorites'),
+                                duration: const Duration(seconds: 2),
                                 action: SnackBarAction(
                                   label: 'VIEW',
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => FavoritePage(),
+                                        builder: (context) =>
+                                            const FavoritePage(),
                                       ),
                                     );
                                   },
@@ -170,7 +171,8 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                             );
                           } else {
                             favoritesManager.removeFavorite(widget.templee.id);
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
                               content: Text('Removed from favorites'),
                               duration: Duration(seconds: 1),
                             ));
@@ -185,25 +187,25 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     widget.templee.shortDescription,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 15,
                       color: Colors.black87,
                       height: 1.5,
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     children: [
                       Expanded(
                         child: Text(
                           widget.templee.fullDescription,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                             color: Colors.black87,
                             height: 1.5,
@@ -212,7 +214,7 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
@@ -224,13 +226,13 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                         Navigator.pop(context);
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF5E2B10),
-                        minimumSize: Size(double.infinity, 50),
+                        backgroundColor: const Color(0xFF5E2B10),
+                        minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         'Complete your Tour',
                         style: TextStyle(
                           fontSize: 16,
@@ -249,12 +251,12 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
       // إضافة زر عائم للنطق
       floatingActionButton: FloatingActionButton(
         onPressed: _toggleSpeak,
-        backgroundColor: Color(0xFF5E2B10),
+        backgroundColor: const Color(0xFF5E2B10),
+        tooltip: isSpeaking ? 'Stop Reading' : 'Read Description',
         child: Icon(
           isSpeaking ? Icons.stop : Icons.record_voice_over,
           color: Colors.white,
         ),
-        tooltip: isSpeaking ? 'Stop Reading' : 'Read Description',
       ),
     );
   }

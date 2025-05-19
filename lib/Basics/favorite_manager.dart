@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:eye_hours/statues/main_statues_page.dart';
 import 'package:eye_hours/temples/main_temples_page.dart';
 

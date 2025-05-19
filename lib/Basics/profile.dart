@@ -15,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   File? _profileImage;
-  Map<String, dynamic> _userData = {
+  final Map<String, dynamic> _userData = {
     'firstName': 'John',
     'lastName': 'Doe',
     'email': 'john.doe@example.com', // سيتم عرضه مكان username
@@ -134,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
           icon: Icons.help_center,
           title: 'Help Center',
           onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (_) => HelpCenter())),
+              context, MaterialPageRoute(builder: (_) => const HelpCenter())),
         ),
         _buildProfileOptionItem(
           context,

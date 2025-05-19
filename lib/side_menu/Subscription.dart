@@ -34,7 +34,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           children: [
             Text(
               AppLocalizations.of(context)!.choose,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
               ),
@@ -75,7 +75,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             // VIP Features Section
             Text(
               AppLocalizations.of(context)!.vip,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

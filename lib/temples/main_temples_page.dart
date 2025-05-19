@@ -101,11 +101,13 @@ class MainPageTemples extends StatelessWidget {
     ),
   ];
 
+  MainPageTemples({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Temples Gallery',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
@@ -123,7 +125,7 @@ class MainPageTemples extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
@@ -143,7 +145,7 @@ class MainPageTemples extends StatelessWidget {
 class TempleCard extends StatelessWidget {
   final Temple temple;
 
-  const TempleCard({required this.temple});
+  const TempleCard({super.key, required this.temple});
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +164,7 @@ class TempleCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 8,
@@ -199,14 +201,14 @@ class TempleCard extends StatelessWidget {
                     children: [
                       Text(
                         temple.name,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         temple.shortDescription,
                         style: TextStyle(
