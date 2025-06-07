@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:eye_hours/Basics/edit_setting.dart';
 import 'package:eye_hours/Profile/edit_profile.dart';
 import 'package:eye_hours/pages/login_page.dart';
 import 'package:eye_hours/side_menu/Subscription.dart';
@@ -140,8 +141,8 @@ class _ProfilePageState extends State<ProfilePage> {
           context,
           icon: Icons.settings,
           title: 'Settings',
-          onTap: () => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const SubscriptionScreen())),
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (_) => const SettingsPage())),
         ),
         const SizedBox(height: 16),
         _buildLogoutButton(context),

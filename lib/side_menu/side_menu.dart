@@ -98,7 +98,7 @@ class _SideMenuState extends State<SideMenu> {
           _buildListTile(
             icon: Icons.support_agent,
             title: AppLocalizations.of(context)!.customer,
-            onTap: () => Navigator.pop(context),
+            onTap: () => _navigateTo(context, const HelpCenter()),
           ),
           _buildListTile(
             icon: Icons.chat,
@@ -111,12 +111,12 @@ class _SideMenuState extends State<SideMenu> {
             title: AppLocalizations.of(context)!.terms,
             onTap: () => _navigateTo(context, const TermsAndConditionsScreen()),
           ),
-          _buildListTile(
-            icon: Icons.help,
-            title: AppLocalizations.of(context)!.help,
-            onTap: () => _navigateTo(context, const HelpCenter()),
-          ),
-          Divider(color: Colors.grey[300]),
+          // _buildListTile(
+          //   icon: Icons.help,
+          //   title: AppLocalizations.of(context)!.help,
+          //   onTap: () => _navigateTo(context, const HelpCenter()),
+          // ),
+          // Divider(color: Colors.grey[300]),
           _buildListTile(
             icon: Icons.exit_to_app,
             title: AppLocalizations.of(context)!.logout,

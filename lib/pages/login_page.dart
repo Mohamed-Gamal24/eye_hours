@@ -36,7 +36,7 @@ class AuthResponse {
 // إضافة خدمة API للمصادقة
 class AuthService {
   static const String baseUrl =
-      'https://your-api-domain.com'; // استبدل هذا بعنوان API الخاص بك
+      'http://127.0.0.1:8000/api/system/login/'; // استبدل هذا بعنوان API الخاص بك
 
   // دالة تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
   static Future<AuthResponse> login(String email, String password) async {
@@ -94,6 +94,7 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _isLoading = false;
   String? _errorMessage;
+  bool _showPassword = false; // إضافة متغير لتتبع حالة إظهار كلمة المرور
 
   @override
   void dispose() {
@@ -371,7 +372,7 @@ class _LoginPageState extends State<LoginPage> {
                         keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(height: 20),
-                      // Password field
+                      // Password field مع إمكانية إظهار/إخفاء كلمة المرور
                       TextField(
                         controller: _passwordController,
                         decoration: InputDecoration(
@@ -391,22 +392,29 @@ class _LoginPageState extends State<LoginPage> {
                           focusedBorder: const UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.black),
                           ),
-                          suffixIcon: TextButton(
-                            onPressed: () {
-                              // Navigate to forgot password screen
-                            },
-                            child: const Text(
-                              'Forgot?',
-                              style: TextStyle(
-                                color: Colors.brown,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              // زر إظهار/إخفاء كلمة المرور
+                              IconButton(
+                                icon: Icon(
+                                  _showPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.black54,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _showPassword = !_showPassword;
+                                  });
+                                },
                               ),
-                            ),
+                            ],
                           ),
                         ),
                         style: const TextStyle(color: Colors.black),
-                        obscureText: true,
+                        obscureText:
+                            !_showPassword, // تغيير حالة إخفاء/إظهار كلمة المرور
                       ),
                       const SizedBox(height: 40),
                       // Login button

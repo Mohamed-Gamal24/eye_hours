@@ -15,13 +15,13 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 class RegisterUserModel {
   final String email;
   final String password;
-  final String? name;
+  final String name; // تم تغييره ليكون مطلوب
   final String? phoneNumber;
 
   RegisterUserModel({
     required this.email,
     required this.password,
-    this.name,
+    required this.name, // تم تغييره ليكون مطلوب
     this.phoneNumber,
   });
 
@@ -29,7 +29,7 @@ class RegisterUserModel {
     return {
       'email': email,
       'password': password,
-      if (name != null) 'name': name,
+      'name': name, // الآن مطلوب
       if (phoneNumber != null) 'phoneNumber': phoneNumber,
     };
   }
@@ -38,7 +38,7 @@ class RegisterUserModel {
 // توسيع خدمة المصادقة المنشأة سابقًا
 class AuthService {
   static const String baseUrl =
-      'http://api-rewan1.runasp.net/api/AuthUser/register'; // تم تصحيح العنوان الأساسي للـ API
+      'http://192.168.1.100:8000/api/system/register/'; // تم تصحيح العنوان الأساسي للـ API
 
   // دالة تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
   static Future<AuthResponse> login(String email, String password) async {
@@ -207,11 +207,12 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  // إضافة حقل اسم المستخدم (اختياري)
   final _nameController = TextEditingController();
 
   bool _isLoading = false;
   String? _errorMessage;
+  bool _showPassword = false;
+  bool _showConfirmPassword = false;
 
   @override
   void dispose() {
@@ -246,11 +247,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   // تعديل دالة التسجيل لاستخدام API بدلاً من Firebase مباشرة
   Future<void> _signUpWithEmailPassword() async {
-    // التحقق الأساسي
-    if (_emailController.text.isEmpty ||
+    // التحقق الأساسي - الاسم أصبح مطلوب
+    if (_nameController.text.trim().isEmpty ||
+        _emailController.text.isEmpty ||
         _passwordController.text.isEmpty ||
         _confirmPasswordController.text.isEmpty) {
-      _showError('All fields must be filled');
+      _showError('All fields are requiredة');
       return;
     }
 
@@ -281,13 +283,11 @@ class _RegisterPageState extends State<RegisterPage> {
         return;
       }
 
-      // إنشاء نموذج للمستخدم الجديد
+      // إنشاء نموذج للمستخدم الجديد - الاسم أصبح مطلوب
       final newUser = RegisterUserModel(
         email: _emailController.text.trim(),
         password: _passwordController.text,
-        name: _nameController.text.isNotEmpty
-            ? _nameController.text.trim()
-            : null,
+        name: _nameController.text.trim(), // مطلوب الآن
       );
 
       // استدعاء API للتسجيل
@@ -523,11 +523,12 @@ class _RegisterPageState extends State<RegisterPage> {
                               style: const TextStyle(color: Colors.red),
                             ),
                           ),
-                        // إضافة حقل الاسم (اختياري)
+                        // حقل الاسم (مطلوب الآن)
                         TextField(
                           controller: _nameController,
                           decoration: const InputDecoration(
-                            labelText: 'Full Name (Optional)',
+                            labelText:
+                                'Full Name *', // إضافة علامة * للدلالة على أنه مطلوب
                             labelStyle: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
@@ -551,7 +552,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                            labelText: 'Email',
+                            labelText: 'Email *',
                             labelStyle: TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
@@ -572,54 +573,80 @@ class _RegisterPageState extends State<RegisterPage> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         const SizedBox(height: 20),
-                        // Password field
+                        // Password field مع زر إظهار/إخفاء
                         TextField(
                           controller: _passwordController,
-                          decoration: const InputDecoration(
-                            labelText: 'Password',
-                            labelStyle: TextStyle(
+                          decoration: InputDecoration(
+                            labelText: 'Password *',
+                            labelStyle: const TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
                             ),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.lock_outline,
                               size: 28,
                               color: Colors.black87,
                             ),
-                            border: UnderlineInputBorder(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _showPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black54,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                            ),
+                            border: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black87),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                             ),
                           ),
                           style: const TextStyle(color: Colors.black),
-                          obscureText: true,
+                          obscureText: !_showPassword,
                         ),
                         const SizedBox(height: 20),
-                        // Confirm Password field
+                        // Confirm Password field مع زر إظهار/إخفاء
                         TextField(
                           controller: _confirmPasswordController,
-                          decoration: const InputDecoration(
-                            labelText: 'Confirm Password',
-                            labelStyle: TextStyle(
+                          decoration: InputDecoration(
+                            labelText: 'Confirm Password *',
+                            labelStyle: const TextStyle(
                               color: Colors.black87,
                               fontWeight: FontWeight.w500,
                             ),
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.lock_outline,
                               size: 28,
                               color: Colors.black87,
                             ),
-                            border: UnderlineInputBorder(
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _showConfirmPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black54,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _showConfirmPassword = !_showConfirmPassword;
+                                });
+                              },
+                            ),
+                            border: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black87),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(color: Colors.black),
                             ),
                           ),
                           style: const TextStyle(color: Colors.black),
-                          obscureText: true,
+                          obscureText: !_showConfirmPassword,
                         ),
                         const SizedBox(height: 40),
                         // Sign up button

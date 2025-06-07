@@ -16,11 +16,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     {
       'image': 'assets/image/2f127195133c9166df40d1ba744cbb8f.jpg',
       'text':
-          'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+          'Egyptian landmarks are simply iconic symbols of history and culture',
     },
     {
       'image': 'assets/image/6212889649898e9c743f69e6a52c7364.jpg',
-      'text': "Discover the amazing features of our app.",
+      'text': "Discover the amazing features of our app(    099099ء)",
     },
     {
       'image': 'assets/image/c398210f53e7f530bf3466b4efeb09e7.png',
