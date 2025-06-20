@@ -1,3 +1,5 @@
+import 'package:eye_hours/side_menu/booking.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -91,6 +93,11 @@ class _SideMenuState extends State<SideMenu> {
             onTap: () => _navigateTo(context, const ProfilePage()),
           ),
           _buildListTile(
+            icon: CupertinoIcons.tickets_fill,
+            title: AppLocalizations.of(context)!.booking,
+            onTap: () => _navigateTo(context, const TourismBookingPage()),
+          ),
+          _buildListTile(
             icon: Icons.subscriptions,
             title: AppLocalizations.of(context)!.subscription,
             onTap: () => _navigateTo(context, const SubscriptionScreen()),
@@ -112,7 +119,7 @@ class _SideMenuState extends State<SideMenu> {
             onTap: () => _navigateTo(context, const TermsAndConditionsScreen()),
           ),
           // _buildListTile(
-          //   icon: Icons.help,
+          //   icon: Icons.,
           //   title: AppLocalizations.of(context)!.help,
           //   onTap: () => _navigateTo(context, const HelpCenter()),
           // ),

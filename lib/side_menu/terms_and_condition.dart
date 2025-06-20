@@ -78,7 +78,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
           const SizedBox(height: 20),
           _buildSectionTitle('6. Contact Us'),
           _buildSectionContent(
-              'For any questions or feedback regarding these Terms and Conditions, please contact us at:\nEmail: support@eyeofhours.com\nOr through the in-app contact form.'),
+              'For any questions or feedback regarding these Terms and Conditions, please contact us at:\nEmail: teamproj211@gmail.com\nOr through the in-app contact form.'),
           const SizedBox(height: 40),
         ],
       ),
