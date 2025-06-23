@@ -20,7 +20,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
     {
       'image': 'assets/image/6212889649898e9c743f69e6a52c7364.jpg',
-      'text': "Discover the amazing features of our app(    099099ء)",
+      'text': "Discover the amazing features of our app",
     },
     {
       'image': 'assets/image/c398210f53e7f530bf3466b4efeb09e7.png',

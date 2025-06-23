@@ -17,7 +17,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
 
   // API URL
   final String apiUrl =
-      'https://ancient-egypt-chatbot-ai-agent-production.up.railway.app/chat';
+      'https://chatbotproject-production-b66c.up.railway.app/api/ask';
 
   @override
   void initState() {
@@ -65,40 +65,120 @@ class _ChatBotPageState extends State<ChatBotPage> {
     setState(() => _isTyping = true);
 
     try {
-      // Prepare request data
-      final Map<String, String> requestData = {
+      // جرب عدة تنسيقات مختلفة للبيانات
+      final Map<String, dynamic> requestData = {
         'question': userMessage,
+        'message': userMessage, // إضافة مفتاح بديل
+        'query': userMessage, // إضافة مفتاح بديل آخر
       };
+
+      print('Sending request to: $apiUrl');
+      print('Request data: ${jsonEncode(requestData)}');
 
       // Send POST request to API
       final response = await http.post(
         Uri.parse(apiUrl),
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: jsonEncode(requestData),
       );
 
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+      print('Response headers: ${response.headers}');
+
       if (response.statusCode == 200) {
         // Handle successful response
         final responseData = jsonDecode(response.body);
-        String botResponse =
-            responseData['response'] ?? "Sorry, I didn't understand that.";
+        print('Parsed response data: $responseData');
+
+        // جرب مفاتيح مختلفة للاستجابة
+        String botResponse = '';
+
+        if (responseData is Map<String, dynamic>) {
+          // جرب مفاتيح مختلفة محتملة
+          botResponse = responseData['response'] ??
+              responseData['answer'] ??
+              responseData['reply'] ??
+              responseData['message'] ??
+              responseData['text'] ??
+              responseData['result'] ??
+              responseData.toString();
+        } else if (responseData is String) {
+          botResponse = responseData;
+        } else {
+          botResponse = responseData.toString();
+        }
+
+        if (botResponse.isEmpty || botResponse == 'null') {
+          botResponse =
+              "Sorry, I received an empty response. Please try again.";
+        }
+
         _addBotMessage(botResponse);
       } else {
-        // Handle error
-        _addBotMessage(
-            "Sorry, there was a connection error. Please try again later.");
+        // Handle error with more detailed information
+        String errorMessage =
+            "Sorry, there was a connection error (${response.statusCode}).";
+
+        try {
+          final errorData = jsonDecode(response.body);
+          if (errorData is Map && errorData.containsKey('error')) {
+            errorMessage += " Error: ${errorData['error']}";
+          }
+        } catch (e) {
+          // Response body is not JSON
+          errorMessage += " Response: ${response.body}";
+        }
+
+        _addBotMessage(errorMessage);
         print('Request failed with status: ${response.statusCode}');
         print('Response body: ${response.body}');
       }
     } catch (e) {
-      // Handle exceptions
-      _addBotMessage(
-          "Sorry, there was a connection error. Please check your internet connection and try again.");
+      // Handle exceptions with more details
+      String errorMessage = "Sorry, there was a connection error: $e";
+      _addBotMessage(errorMessage);
       print('Exception occurred: $e');
     } finally {
       setState(() => _isTyping = false);
+    }
+  }
+
+  // إضافة دالة لاختبار الـ API
+  Future<void> _testAPI() async {
+    print('Testing API connection...');
+
+    try {
+      // اختبار بـ GET request أولاً
+      final getResponse = await http.get(Uri.parse(apiUrl));
+      print('GET Response: ${getResponse.statusCode} - ${getResponse.body}');
+    } catch (e) {
+      print('GET request failed: $e');
+    }
+
+    // اختبار بـ POST request مع بيانات مختلفة
+    final testFormats = [
+      {'question': 'hello'},
+      {'message': 'hello'},
+      {'query': 'hello'},
+      {'text': 'hello'},
+      'hello', // إرسال نص مباشر
+    ];
+
+    for (var format in testFormats) {
+      try {
+        final response = await http.post(
+          Uri.parse(apiUrl),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(format),
+        );
+        print('Test format $format: ${response.statusCode} - ${response.body}');
+      } catch (e) {
+        print('Test format $format failed: $e');
+      }
     }
   }
 
@@ -128,6 +208,14 @@ class _ChatBotPageState extends State<ChatBotPage> {
           ),
         ),
         backgroundColor: Colors.blue,
+        actions: [
+          // إضافة زر لاختبار الـ API
+          IconButton(
+            icon: const Icon(Icons.bug_report, color: Colors.white),
+            onPressed: _testAPI,
+            tooltip: 'Test API',
+          ),
+        ],
       ),
       body: Column(
         children: [
