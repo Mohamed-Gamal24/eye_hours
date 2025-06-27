@@ -36,7 +36,7 @@ class AuthResponse {
 // إضافة خدمة API للمصادقة
 class AuthService {
   static const String baseUrl =
-      'http://127.0.0.1:8000/api/system/login/'; // استبدل هذا بعنوان API الخاص بك
+      'https://horuseye.site/api/system/login/'; // استبدل هذا بعنوان API الخاص بك
 
   // دالة تسجيل الدخول باستخدام البريد الإلكتروني وكلمة المرور
   static Future<AuthResponse> login(String email, String password) async {
